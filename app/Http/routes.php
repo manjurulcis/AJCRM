@@ -12,6 +12,9 @@
 */
 
 Route::get('/','loginController@index');
+Route::post('/admin-login-check','loginController@admin_login_check');
+Route::post('/admin-register','loginController@admin_register');
+Route::get('/dashboard','adminController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +26,6 @@ Route::get('/','loginController@index');
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
     //
 });
