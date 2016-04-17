@@ -1,1 +1,0 @@
-AJCRM is a web application software based on laravel
