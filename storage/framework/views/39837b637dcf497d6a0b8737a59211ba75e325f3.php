@@ -28,21 +28,7 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Daily active users</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a>
-                                </li>
-                                <li><a href="#">Settings 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
+                    
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -73,8 +59,8 @@
                                 <td class=" "><?php echo e(Date('d-m-Y   h:i:s a',strtotime($user->created_at))); ?> </td>
                                 <td class=" last">
                                     <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success">View</a>
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i> Edit </a> 
-                                    <!--Edit Modal -->
+                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i> Edit </a>                                    
+                                    <!-- Modal -->
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -84,26 +70,45 @@
                                                 </div>
                                                 <div class="modal-body">
 
-                                                    <div class="list-group">
-                                                        <a href="#" class="list-group-item">
-                                                            <h4 class="list-group-item-heading">Username</h4>
-                                                            <p class="list-group-item-text"><?php echo e(Auth::user()->username); ?></p>
-                                                        </a>
-                                                        <a href="#" class="list-group-item">
-                                                            <h4 class="list-group-item-heading">Email</h4>
-                                                            <p class="list-group-item-text"><?php echo e(Auth::user()->email); ?></p>
-                                                        </a>
-                                                    </div>
+                                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="submit" class="btn btn-primary" value="Save changes">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <input type="text" id="username" required="required" value="Username Here(From DB)" class="form-control col-md-7 col-xs-12">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                                                            </label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <input type="text" id="last-name" name="email" required="required" value="Email Here(From DB)" class="form-control col-md-7 col-xs-12">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <input id="password" class="form-control col-md-7 col-xs-12" type="text" name="password" value="Password Here(From DB)">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="ln_solid"></div>
+
+                                                        <div class="form-group">
+                                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-success">Save changes</button>
+                                                                <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <a href="<?php echo e(URL::to("profile/delete/$user->id")); ?>" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

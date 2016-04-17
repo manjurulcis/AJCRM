@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<20;$i++){
+        for($i=0;$i<10;$i++){
             User::create([
                 "username"=>"username$i",
                 "email"=>"email$i",
