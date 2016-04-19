@@ -23,6 +23,32 @@
     <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
+            
+            <li><a><i class="fa fa-home"></i> Company <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Add Company</a>
+                    </li>
+                    <li><a href="#"> Company List </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-users"></i> Teams <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Add Teams</a>
+                    </li>
+                    <li><a href="#"> Team Lists </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a><i class="fa fa-th-list"></i> Projects <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li><a href="#">Add Project</a>
+                    </li>
+                    <li><a href="#"> Project List </a>
+                    </li>
+                </ul>
+            </li>
+
             <li><a href="<?php echo e(url('/users-list')); ?>"><i class="fa fa-windows"></i> User List</a></li>
         </ul>
     </div>
