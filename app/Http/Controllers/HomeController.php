@@ -29,6 +29,10 @@ class HomeController extends Controller
     {
         return view("dashboard");
     }
+    public function add_company()
+    {
+        return view("add_company");
+    }
     public function view_profile(Request $request)
     {
 //        echo $request->id;

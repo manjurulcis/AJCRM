@@ -26,7 +26,7 @@
             
             <li><a><i class="fa fa-home"></i> Company <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Add Company</a>
+                    <li><a href="<?php echo e(url('/add-company')); ?>">Add Company</a>
                     </li>
                     <li><a href="#"> Company List </a>
                     </li>
