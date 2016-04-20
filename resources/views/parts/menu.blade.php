@@ -34,7 +34,7 @@
             </li>
             <li><a><i class="fa fa-users"></i> Teams <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Add Teams</a>
+                    <li><a href="{{url('/add-team')}}">Add Teams</a>
                     </li>
                     <li><a href="#"> Team Lists </a>
                     </li>
