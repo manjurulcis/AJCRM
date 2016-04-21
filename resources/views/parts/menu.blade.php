@@ -42,7 +42,7 @@
             </li>
             <li><a><i class="fa fa-th-list"></i> Projects <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">Add Project</a>
+                    <li><a href="{{url('/add-project')}}">Add Project</a>
                     </li>
                     <li><a href="#"> Project List </a>
                     </li>

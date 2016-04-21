@@ -37,6 +37,10 @@ class HomeController extends Controller
     {
         return view("add_team");
     }
+    public function add_project()
+    {
+        return view("add_project");
+    }
     public function view_profile(Request $request)
     {
 //        echo $request->id;
