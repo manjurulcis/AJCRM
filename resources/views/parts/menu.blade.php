@@ -28,7 +28,7 @@
                 <ul class="nav child_menu" style="display: none">
                     <li><a href="{{url('/add-company')}}">Add Company</a>
                     </li>
-                    <li><a href="#"> Company List </a>
+                    <li><a href="{{url('/company-list')}}"> Company List </a>
                     </li>
                 </ul>
             </li>

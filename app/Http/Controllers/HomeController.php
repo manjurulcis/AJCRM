@@ -33,6 +33,10 @@ class HomeController extends Controller
     {
         return view("add_company");
     }
+    public function company_list()
+    {
+        return view("company_list");
+    }
     public function add_team()
     {
         return view("add_team");

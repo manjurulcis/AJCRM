@@ -2,10 +2,7 @@
     <div class="page-title">
         <div class="title_left">
             <h3>
-                User's
-                <small>
-                    List
-                </small>
+                User's<small>List</small>
             </h3>
         </div>
 
@@ -57,7 +54,7 @@
                                 <td class=" "><?php echo e($user->email); ?></td>
                                 <td class=" "><?php echo e(Date('d-m-Y   h:i:s a',strtotime($user->created_at))); ?> </td>
                                 <td class=" last">
-                                    <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success">View</a>
+                                    <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                                     <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i> Edit </a>                                    
                                     <!-- Modal -->
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -125,13 +122,52 @@
 
     </div>
 </div>
-<!-- footer content -->
-<footer>
-    <div class="">
-        <p class="pull-right">Gentelella Alela! a Bootstrap 3 template by <a>Kimlabs</a>. |
-            <span class="lead"> <i class="fa fa-paw"></i> Gentelella Alela!</span>
-        </p>
-    </div>
-    <div class="clearfix"></div>
-</footer>
-<!-- /footer content -->
+
+<script>
+        $(document).ready(function () {
+        $('input.tableflat').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
+        });
+
+        var asInitVals = new Array();
+        $(document).ready(function () {
+        var oTable = $('#example').dataTable({
+            "oLanguage": {
+                "sSearch": "Search all columns:"
+            },
+            "aoColumnDefs": [
+                {
+                    'bSortable': false,
+                    'aTargets': [0]
+                } //disables sorting for column one
+        ],
+            'iDisplayLength': 12,
+            "sPaginationType": "full_numbers",
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "assets2/js/Datatables/tools/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+        $("tfoot input").keyup(function () {
+            /* Filter on the column based on the index of this element's parent <th> */
+            oTable.fnFilter(this.value, $("tfoot th").index($(this).parent()));
+        });
+        $("tfoot input").each(function (i) {
+            asInitVals[i] = this.value;
+        });
+        $("tfoot input").focus(function () {
+            if (this.className == "search_init") {
+                this.className = "";
+                this.value = "";
+            }
+        });
+        $("tfoot input").blur(function (i) {
+            if (this.value == "") {
+                this.className = "search_init";
+                this.value = asInitVals[$("tfoot input").index(this)];
+            }
+        });
+        });
+</script>

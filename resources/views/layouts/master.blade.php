@@ -414,7 +414,7 @@
                     "sPaginationType": "full_numbers",
                     "dom": 'T<"clear">lfrtip',
                     "tableTools": {
-                        "sSwfPath": "<?php echo base_path('js/Datatables/tools/swf/copy_csv_xls_pdf.swf'); ?>"
+                        "sSwfPath": "assets2/js/Datatables/tools/swf/copy_csv_xls_pdf.swf"
                     }
                 });
                 $("tfoot input").keyup(function () {
