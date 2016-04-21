@@ -101,7 +101,7 @@
     <script src="{{URL::asset('js')}}/cropping/main.js"></script>
 
         <!-- daterangepicker -->
-        <script type="text/javascript" src="{{URL::asset('js')}}/moment.min.js"></script>
+        <script type="text/javascript" src="{{URL::asset('js')}}/moment/moment.min.js"></script>
         <script type="text/javascript" src="{{URL::asset('js')}}/datepicker/daterangepicker.js"></script>
 
         <script src="{{URL::asset('js')}}/custom.js"></script>
