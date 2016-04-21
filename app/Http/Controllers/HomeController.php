@@ -41,6 +41,10 @@ class HomeController extends Controller
     {
         return view("add_team");
     }
+    public function team_list()
+    {
+        return view("team_list");
+    }
     public function add_project()
     {
         return view("add_project");

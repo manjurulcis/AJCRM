@@ -38,7 +38,7 @@
                                 <th >Username</th>
                                 <th>email </th>
                                 <th>Joined at </th>
-                                <th class=" no-link last text-center" width="25%"><span class="nobr">Action</span>
+                                <th class=" no-link last text-center" width="17%"><span class="nobr">Action</span>
                                 </th>
                             </tr>
                         </thead>
@@ -54,8 +54,8 @@
                                 <td class=" ">{{$user->email}}</td>
                                 <td class=" ">{{Date('d-m-Y   h:i:s a',strtotime($user->created_at))}} </td>
                                 <td class=" last">
-                                    <a href="{{URL::to("profile/view/$user->id")}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i> Edit </a>                                    
+                                    <a href="{{URL::to("profile/view/$user->id")}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i></a>                                    
                                     <!-- Modal -->
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="{{URL::to("profile/delete/$user->id")}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{URL::to("profile/delete/$user->id")}}" class="btn btn-danger"><i class="fa fa-trash m-right-xs"></i></a>
                                 </td>
                             </tr>
                             @endforeach

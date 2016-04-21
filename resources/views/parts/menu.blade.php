@@ -36,7 +36,7 @@
                 <ul class="nav child_menu" style="display: none">
                     <li><a href="{{url('/add-team')}}">Add Teams</a>
                     </li>
-                    <li><a href="#"> Team Lists </a>
+                    <li><a href="{{url('/team-list')}}"> Team Lists </a>
                     </li>
                 </ul>
             </li>

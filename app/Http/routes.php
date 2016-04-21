@@ -21,5 +21,6 @@ Route::get('/profile/delete/{id}', 'HomeController@delete_profile');
 Route::get('/add-company', 'HomeController@add_company');
 Route::get('/company-list', 'HomeController@company_list');
 Route::get('/add-team', 'HomeController@add_team');
+Route::get('/team-list', 'HomeController@team_list');
 Route::get('/add-project', 'HomeController@add_project');
 Route::get('/users-list', 'HomeController@users_list');
