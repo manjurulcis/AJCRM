@@ -49,6 +49,10 @@ class HomeController extends Controller
     {
         return view("add_project");
     }
+    public function project_list()
+    {
+        return view("project_list");
+    }
     public function view_profile(Request $request)
     {
 //        echo $request->id;

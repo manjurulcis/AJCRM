@@ -1,13 +1,13 @@
 <!-- page content -->
 <div class="">
     <div class="row">
-
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Team List <small>info</small></h2>
+                    <h2>Project List <small>info</small></h2>
                     <div class="clearfix"></div>
                 </div>
+                
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
@@ -15,9 +15,10 @@
                                 <th>
                                     <input type="checkbox" class="tableflat">
                                 </th>
-                                <th>Name </th>
-                                <th>Company </th>
-                                <th>Description </th>
+                                <th>Title </th>
+                                <th>Client </th>
+                                <th>Status </th>
+                                <th>Deadline </th>
                                 <th class=" no-link last text-center" width="17%"><span class="nobr">Action</span>
                                 </th>
                             </tr>
@@ -28,9 +29,10 @@
                                 <td class="a-center ">
                                     <input type="checkbox" checked class="tableflat">
                                 </td>
-                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Team 1</td>
-                                <td class=" ">Company 1</td>
-                                <td class="a-right a-right ">Desc1</td>
+                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Project1</td>
+                                <td class=" ">Client1</td>
+                                <td class=" ">Active</td>
+                                <td class="a-right a-right ">12-05-2016</td>
                                 <td class=" last">
                                     <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
@@ -41,9 +43,10 @@
                                 <td class="a-center ">
                                     <input type="checkbox" class="tableflat">
                                 </td>
-                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Team 2</td>
-                                <td class=" ">Company 2</td>
-                                <td class="a-right a-right ">Desc2</td>
+                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Project2</td>
+                                <td class=" ">Client2</td>
+                                <td class=" ">Inactive</td>
+                                <td class="a-right a-right ">03-07-2017</td>
                                 <td class=" last">
                                     <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
