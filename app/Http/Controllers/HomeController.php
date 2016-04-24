@@ -51,7 +51,9 @@ class HomeController extends Controller {
     }
 
     public function company_list() {
-        return view("company_list");
+        $data = addCompany::all();
+//        dd($data);
+        return view("company_list")->with('company_list', $data);
     }
 
     public function add_team() {

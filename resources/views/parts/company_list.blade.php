@@ -41,22 +41,24 @@
                                     <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
+                            
+                            @foreach($company_list as $data)
                             <tr class="odd pointer">
                                 <td class="a-center ">
                                     <input type="checkbox" class="tableflat">
                                 </td>
-                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Company 2</td>
-                                <td class=" ">Address 2</td>
-                                <td class=" ">121000208</td>
-                                <td class=" ">email2@gmail.com</td>
-                                <td class="a-right a-right ">Desc2</td>
+                                <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"/> {{$data->name}}</td>
+                                <td class=" ">{{$data->address}}</td>
+                                <td class=" ">{{$data->contact_no}}</td>
+                                <td class=" ">{{$data->email}}</td>
+                                <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
                                     <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
                                     <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
 
                     </table>
