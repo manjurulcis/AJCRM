@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\addCompany;
 use App\Team;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller {
@@ -79,8 +80,11 @@ class HomeController extends Controller {
     }
 
     public function team_list() {
-        return view("team_list");
-        
+        $data = DB::table('teams')
+            ->join('companies', 'teams.company_id', '=', 'companies.id')
+            ->select('teams.*', 'companies.name as company_name')
+            ->get();
+        return view("team_list")->with('team_list', $data);
     }
 
     public function add_project() {
