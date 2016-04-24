@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\User;
 use App\addCompany;
+use App\Team;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller {
@@ -57,11 +58,29 @@ class HomeController extends Controller {
     }
 
     public function add_team() {
-        return view("add_team");
+        $companies = addCompany::select('id','name')->get();
+        return view("add_team")->with('companies', $companies);
+    }
+    public function save_team(Request $data) {
+//        dd($data);
+        $store = new Team();
+        $store->name = $data->tname;
+        $store->company_id = $data->tcompany;
+        $store->description = $data->tdescription;
+
+        $destinationPath = 'upload'; // upload path
+        $extension = $data->file('tlogo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('tlogo')->move($destinationPath, $fileName);
+
+        $store->logo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
     }
 
     public function team_list() {
         return view("team_list");
+        
     }
 
     public function add_project() {

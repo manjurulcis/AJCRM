@@ -22,6 +22,7 @@ Route::get('/add-company', 'HomeController@add_company');
 Route::post('/save-company', 'HomeController@save_company');
 Route::get('/company-list', 'HomeController@company_list');
 Route::get('/add-team', 'HomeController@add_team');
+Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
 Route::get('/add-project', 'HomeController@add_project');
 Route::get('/project-list', 'HomeController@project_list');
