@@ -94,6 +94,10 @@ class HomeController extends Controller {
         return view("add_client");
     }
 
+    public function client_list() {
+        return view("client_list");
+    }
+    
     public function project_list() {
         return view("project_list");
     }
