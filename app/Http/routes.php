@@ -26,4 +26,6 @@ Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
 Route::get('/add-project', 'HomeController@add_project');
 Route::get('/project-list', 'HomeController@project_list');
+Route::get('/add-client', 'HomeController@add_client');
+
 Route::get('/users-list', 'HomeController@users_list');
