@@ -48,6 +48,14 @@
                     </li>
                 </ul>
             </li>
+            <li><a><i class="fa fa-users"></i> Clients <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li><a href="#"><i class="fa fa-plus" aria-hidden="true"></i> Add Client</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-list-ul" aria-hidden="true"></i> Client List </a>
+                    </li>
+                </ul>
+            </li>
             <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li><a href="<?php echo e(url('/users-list')); ?>"><i class="fa fa-list-ul" aria-hidden="true"></i> User List</a></li>
