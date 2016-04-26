@@ -16,9 +16,9 @@ class CreateProjectsTable extends Migration
             $table->increments('project_id');
             $table->string('client_id',3);
             $table->string('project_title',100);
+            $table->string('logo',100);
             $table->string('project_desc',400);
             $table->tinyInteger('project_status');
-            $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();
         });

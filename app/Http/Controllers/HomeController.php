@@ -8,6 +8,7 @@ use App\User;
 use App\addCompany;
 use App\Team;
 use App\client;
+use App\project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
@@ -76,8 +77,26 @@ class HomeController extends Controller {
     }
 
     public function add_project() {
-        
-        return view("add_project");
+        $data = client::select('client_id','client_name')->get();        
+        return view("add_project")->with('client_info', $data);
+    }
+    public function save_project(Request $data) {
+//        dd($data);
+        $store = new project();
+        $store->client_id = $data->client;
+        $store->project_title = $data->name;
+        $store->project_desc = $data->description;
+        $store->project_status = $data->status;
+        $store->end_time = $data->enddate;
+
+        $destinationPath = 'upload/project'; // upload path
+        $extension = $data->file('logo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('logo')->move($destinationPath, $fileName);
+
+        $store->logo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
     }
     public function add_client() {
         return view("add_client");

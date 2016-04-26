@@ -9,13 +9,13 @@
                 </div>
                 <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    {!! Form::open(array('url' => '/save-project','method'=>'post','files'=>true,'class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project-name">Project Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="project-name" required="required" placeholder="name of your Project" class="form-control col-md-7 col-xs-12">
+                                <input type="text" name="name" id="project-name" required="required" placeholder="name of your Project" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
 
@@ -24,20 +24,17 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Project Description</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Project ..."></textarea>
+                                <textarea name="description" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Project ..."></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"> Client </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="select2_group form-control">
-                                    <optgroup label="International">
-                                        <option value="AK">Client 1</option>
-                                        <option value="HI">Client 2</option>
-                                    </optgroup>
+                                <select class="select2_group form-control" name="client">
                                     <optgroup label="Local">
-                                        <option value="CA">Client 3</option>
-
+                                        @foreach($client_info as $data)
+                                        <option value="{{$data->client_id}}">{{$data->client_name}}</option>
+                                        @endforeach
                                     </optgroup>
                                 </select>
                             </div>
@@ -60,11 +57,9 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div id="status" class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                        <input type="radio" name="status" value="0"> &nbsp; Inactive &nbsp;
-                                    </label>
+                                        <input type="radio" name="status" value="0"> Inactive </label>
                                     <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                        <input type="radio" name="status" value="1" checked=""> Active
-                                    </label>
+                                        <input type="radio" name="status" value="1" checked=""> Active </label>
                                 </div>
                             </div>
                         </div>
@@ -73,11 +68,11 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="submit" class="btn btn-primary">Cancel</button>
+                                <input type="submit" class="btn btn-success" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Cancel">
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -86,6 +81,9 @@
     <script type="text/javascript">
         $(function () {
             $('input[name="enddate"]').daterangepicker({
+                locale: {
+            format: 'DD/MM/YYYY h:mm A'
+        },
                 singleDatePicker: true,
                 showDropdowns: true
             });
