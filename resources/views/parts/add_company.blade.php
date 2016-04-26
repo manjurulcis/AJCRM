@@ -58,7 +58,7 @@
                                 <input type="submit" class="btn btn-primary" value="Cancel">
                             </div>
                         </div>
-                    </form>
+                    
                     {!! Form::close() !!}
                 </div>
             </div>

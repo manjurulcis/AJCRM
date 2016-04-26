@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\addCompany;
 use App\Team;
+use App\client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
@@ -42,7 +43,7 @@ class HomeController extends Controller {
         $store->address = $data->caddress;
         $store->contact_no = $data->cno;
 
-        $destinationPath = 'upload'; // upload path
+        $destinationPath = 'upload/company'; // upload path
         $extension = $data->file('clogo')->getClientOriginalExtension();
         $fileName = rand(1, 999) . '.' . $extension;
         $data->file('clogo')->move($destinationPath, $fileName);
@@ -69,7 +70,7 @@ class HomeController extends Controller {
         $store->company_id = $data->tcompany;
         $store->description = $data->tdescription;
 
-        $destinationPath = 'upload'; // upload path
+        $destinationPath = 'upload/team'; // upload path
         $extension = $data->file('tlogo')->getClientOriginalExtension();
         $fileName = rand(1, 999) . '.' . $extension;
         $data->file('tlogo')->move($destinationPath, $fileName);
@@ -88,10 +89,30 @@ class HomeController extends Controller {
     }
 
     public function add_project() {
+        
         return view("add_project");
     }
     public function add_client() {
         return view("add_client");
+    }
+    
+    public function save_client(Request $data) {
+//        dd($data);
+        $store = new client();
+        $store->client_name = $data->name;
+        $store->client_address = $data->address;
+        $store->client_email = $data->email;
+//        $store-> = $data->bdate;
+        $store->contact_no = $data->cno;
+
+        $destinationPath = 'upload/client'; // upload path
+        $extension = $data->file('photo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('photo')->move($destinationPath, $fileName);
+
+        $store->client_photo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
     }
 
     public function client_list() {
