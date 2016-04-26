@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('client_address',400);
             $table->string('client_email',100);
             $table->string('contact_no',14);
+            $table->string('birthdate',14);
             $table->string('client_photo',100);
             $table->timestamps();
         });

@@ -12,21 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
     public function __construct() {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index() {
         return view("dashboard");
     }
@@ -55,7 +44,6 @@ class HomeController extends Controller {
 
     public function company_list() {
         $data = addCompany::all();
-//        dd($data);
         return view("company_list")->with('company_list', $data);
     }
 
@@ -64,7 +52,6 @@ class HomeController extends Controller {
         return view("add_team")->with('companies', $companies);
     }
     public function save_team(Request $data) {
-//        dd($data);
         $store = new Team();
         $store->name = $data->tname;
         $store->company_id = $data->tcompany;
@@ -97,12 +84,11 @@ class HomeController extends Controller {
     }
     
     public function save_client(Request $data) {
-//        dd($data);
         $store = new client();
         $store->client_name = $data->name;
         $store->client_address = $data->address;
         $store->client_email = $data->email;
-//        $store-> = $data->bdate;
+        $store->birthdate = $data->bdate;
         $store->contact_no = $data->cno;
 
         $destinationPath = 'upload/client'; // upload path
@@ -116,7 +102,8 @@ class HomeController extends Controller {
     }
 
     public function client_list() {
-        return view("client_list");
+        $data = client::all();
+        return view("client_list")->with('client_list', $data);
     }
     
     public function project_list() {
@@ -124,12 +111,7 @@ class HomeController extends Controller {
     }
 
     public function view_profile(Request $request) {
-//        echo $request->id;
         $user_info = User::find($request->id);
-//        echo "<pre>";
-//        print_r($user_info);
-//        echo "</pre>";
-//        exit();
         return view("profile")->with('user_info', $user_info);
     }
 
@@ -142,7 +124,6 @@ class HomeController extends Controller {
 
     public function users_list() {
         $data = User::all();
-//        dd($data);
         return view("users_list")->with('users_list', $data);
     }
 
