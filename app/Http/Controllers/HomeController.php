@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller {
-    
+
     public function __construct() {
         $this->middleware('auth');
     }
+
     public function index() {
         return view("dashboard");
     }
@@ -49,9 +50,10 @@ class HomeController extends Controller {
     }
 
     public function add_team() {
-        $companies = addCompany::select('id','name')->get();
+        $companies = addCompany::select('id', 'name')->get();
         return view("add_team")->with('companies', $companies);
     }
+
     public function save_team(Request $data) {
         $store = new Team();
         $store->name = $data->tname;
@@ -70,18 +72,18 @@ class HomeController extends Controller {
 
     public function team_list() {
         $data = DB::table('teams')
-            ->join('companies', 'teams.company_id', '=', 'companies.id')
-            ->select('teams.*', 'companies.name as company_name')
-            ->get();
+                ->join('companies', 'teams.company_id', '=', 'companies.id')
+                ->select('teams.*', 'companies.name as company_name')
+                ->get();
         return view("team_list")->with('team_list', $data);
     }
 
     public function add_project() {
-        $data = client::select('client_id','client_name')->get();        
+        $data = client::select('client_id', 'client_name')->get();
         return view("add_project")->with('client_info', $data);
     }
+
     public function save_project(Request $data) {
-//        dd($data);
         $store = new project();
         $store->client_id = $data->client;
         $store->project_title = $data->name;
@@ -98,10 +100,19 @@ class HomeController extends Controller {
         $store->save();
         return redirect::back();
     }
+
+    public function project_list() {
+        $data = DB::table('projects')
+                ->join('clients', 'projects.client_id', '=', 'clients.client_id')
+                ->select('projects.*', 'clients.client_name')
+                ->get();
+        return view("project_list")->with('project_info', $data);
+    }
+
     public function add_client() {
         return view("add_client");
     }
-    
+
     public function save_client(Request $data) {
         $store = new client();
         $store->client_name = $data->name;
@@ -123,10 +134,6 @@ class HomeController extends Controller {
     public function client_list() {
         $data = client::all();
         return view("client_list")->with('client_list', $data);
-    }
-    
-    public function project_list() {
-        return view("project_list");
     }
 
     public function view_profile(Request $request) {

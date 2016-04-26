@@ -39,21 +39,26 @@
                                     <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
+                            @foreach($project_info as $data)
                             <tr class="odd pointer">
                                 <td class="a-center ">
                                     <input type="checkbox" class="tableflat">
                                 </td>
-                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Project2</td>
-                                <td class=" ">Client2</td>
+                                <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"> {{$data->project_title}}</td>
+                                <td class=" ">{{$data->client_name}}</td>
+                                @if($data->project_status)
+                                <td class=" ">Active</td>
+                                @else
                                 <td class=" ">Inactive</td>
-                                <td class="a-right a-right ">03-07-2017</td>
+                                @endif
+                                <td class="a-right a-right ">{{$data->end_time}}</td>
                                 <td class=" last">
-                                    <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{URL::to('project/'.$data->project_id)}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
                                     <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
 
                     </table>
