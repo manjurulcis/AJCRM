@@ -28,6 +28,8 @@ return array(
     'App\\Team' => $baseDir . '/app/Team.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\addCompany' => $baseDir . '/app/addCompany.php',
+    'App\\client' => $baseDir . '/app/client.php',
+    'App\\project' => $baseDir . '/app/project.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'ClassPreloader\\ClassList' => $vendorDir . '/classpreloader/classpreloader/src/ClassList.php',

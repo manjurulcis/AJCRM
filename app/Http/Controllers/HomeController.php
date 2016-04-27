@@ -49,6 +49,12 @@ class HomeController extends Controller {
         return view("company_list")->with('company_list', $data);
     }
 
+    public function delete_company(Request $request) {
+        $company_info = addCompany::find($request->id);
+        $company_info->delete();
+        return redirect::back();
+    }
+    
     public function add_team() {
         $companies = addCompany::select('id', 'name')->get();
         return view("add_team")->with('companies', $companies);
