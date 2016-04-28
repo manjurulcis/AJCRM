@@ -33,6 +33,8 @@ Route::get('/team/delete/{id}', 'HomeController@delete_team');
 Route::get('/add-project', 'HomeController@add_project');
 Route::post('/save-project', 'HomeController@save_project');
 Route::get('/project-list', 'HomeController@project_list');
+Route::get('/project/delete/{id}', 'HomeController@delete_project');
+
 
 Route::get('/add-client', 'HomeController@add_client');
 Route::post('/save-client', 'HomeController@save_client');

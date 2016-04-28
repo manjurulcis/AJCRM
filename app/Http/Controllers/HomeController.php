@@ -121,6 +121,12 @@ class HomeController extends Controller {
         return view("project_list")->with('project_info', $data);
     }
 
+    public function delete_project(Request $request) {
+        $project_info = project::find($request->id);
+        $project_info->delete();
+        return redirect::back();
+    }
+    
     public function add_client() {
         return view("add_client");
     }
