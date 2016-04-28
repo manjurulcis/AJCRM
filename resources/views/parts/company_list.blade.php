@@ -31,22 +31,6 @@
                         </thead>
 
                         <tbody>
-                            <tr class="even pointer selected">
-                                <td class="a-center ">
-                                    <input type="checkbox" checked class="tableflat">
-                                </td>
-                                <td class=" "><i class="fa fa-paw fa-2x" aria-hidden="true"></i> Comapany 1</td>
-                                <td class=" ">Address 1 </td>
-                                <td class=" ">121000210</td>
-                                <td class=" ">email1@gmail.com</td>
-                                <td class="a-right a-right ">Desc1</td>
-                                <td class=" last">
-                                    <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
-                                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            
                             @foreach($company_list as $data)
                                 <tr class="odd pointer">
                                     <td class="a-center">
