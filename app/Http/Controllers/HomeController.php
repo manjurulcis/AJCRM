@@ -154,6 +154,12 @@ class HomeController extends Controller {
         return view("client_list")->with('client_list', $data);
     }
 
+    public function delete_client(Request $request) {
+        $client_info = client::find($request->id);
+        $client_info->delete();
+        return redirect::back();
+    }
+    
     public function view_profile(Request $request) {
         $user_info = User::find($request->id);
         return view("profile")->with('user_info', $user_info);

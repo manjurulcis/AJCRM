@@ -55,7 +55,7 @@
                                 <td class=" last">
                                     <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
-                                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('client/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
