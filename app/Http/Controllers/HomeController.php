@@ -84,6 +84,12 @@ class HomeController extends Controller {
         return view("team_list")->with('team_list', $data);
     }
 
+    public function delete_team(Request $request) {
+        $team_info = Team::find($request->id);
+        $team_info->delete();
+        return redirect::back();
+    }
+    
     public function add_project() {
         $data = client::select('client_id', 'client_name')->get();
         return view("add_project")->with('client_info', $data);

@@ -27,6 +27,8 @@ Route::get('/company/delete/{id}', 'HomeController@delete_company');
 Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
+Route::get('/team/delete/{id}', 'HomeController@delete_team');
+
 
 Route::get('/add-project', 'HomeController@add_project');
 Route::post('/save-project', 'HomeController@save_project');

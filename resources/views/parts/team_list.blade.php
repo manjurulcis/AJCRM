@@ -46,9 +46,9 @@
                                 <td class=" ">{{$data->company_name}}</td>
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
-                                    <a href="{{url('team/'.$data->team_id)}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
-                                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('team/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach

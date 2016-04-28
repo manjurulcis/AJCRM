@@ -1,3 +1,8 @@
+
+@if($company_list->isEmpty())
+<h4>Table is Empty</h4>
+@endif
+
 <!-- page content -->
 <div class="">
     <div class="row">
@@ -43,24 +48,23 @@
                             </tr>
                             
                             @foreach($company_list as $data)
-                            <tr class="odd pointer">
-                                <td class="a-center ">
-                                    <input type="checkbox" class="tableflat">
-                                </td>
-                                <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"/> {{$data->name}}</td>
-                                <td class=" ">{{$data->address}}</td>
-                                <td class=" ">{{$data->contact_no}}</td>
-                                <td class=" ">{{$data->email}}</td>
-                                <td class="a-right a-right ">{{$data->description}}</td>
-                                <td class=" last">
-                                    <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
-                                    <a href="{{url('/company/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
+                                <tr class="odd pointer">
+                                    <td class="a-center">
+                                        <input type="checkbox" class="tableflat">
+                                    </td>
+                                    <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"/> {{$data->name}}</td>
+                                    <td class=" ">{{$data->address}}</td>
+                                    <td class=" ">{{$data->contact_no}}</td>
+                                    <td class=" ">{{$data->email}}</td>
+                                    <td class="a-right a-right ">{{$data->description}}</td>
+                                    <td class=" last">
+                                        <a href="" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a href="" class="btn btn-warning"><i class="fa fa-edit m-right-xs"></i></a>
+                                        <a href="{{url('/company/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
             </div>
