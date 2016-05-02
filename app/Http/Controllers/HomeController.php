@@ -115,7 +115,7 @@ class HomeController extends Controller {
 
     public function project_list() {
         $data = DB::table('projects')
-                ->join('clients', 'projects.id', '=', 'clients.id')
+                ->join('clients', 'projects.client_id', '=', 'clients.id')
                 ->select('projects.*', 'clients.client_name')
                 ->get();
         return view("project_list")->with('project_info', $data);
