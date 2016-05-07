@@ -41,69 +41,69 @@
                                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Edit"><i class="fa fa-edit m-right-xs"></i></a>
                                     <a href="{{url('/company/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="exampleModalLabel">Workout</h4>
-                                                </div>
-                                                <form class="form-horizontal" action="#" >
-                                                    <div class="modal-body">
-
-
-                                                        <div class="form-group">
-                                                            <label for="name" class="col-sm-2 control-label">Name</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="name" placeholder="Name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="address" class="col-sm-2 control-label">Address</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="address" placeholder="Address of Company">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="email" class="col-sm-2 control-label">Email</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="email" class="form-control" id="email" placeholder="Email">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="description" class="col-sm-2 control-label">Description</label>
-                                                            <div class="col-sm-10">
-                                                                <textarea class="col-sm-12" rows="4" placeholder="Add some Description"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="cno" class="col-sm-2 control-label">Contact no</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="cno" placeholder="Contact No.">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="logo" class="col-sm-2 control-label">Logo</label>
-                                                            <div class="">
-                                                                <input type="file" id="logo">
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="submit" class="btn btn-primary" value="Save"/>
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="exampleModalLabel">Workout</h4>
+                                </div>
+                                <form class="form-horizontal" action="#" >
+                                    <div class="modal-body">
+
+
+                                        <div class="form-group">
+                                            <label for="name" class="col-sm-2 control-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address" class="col-sm-2 control-label">Address</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="address" placeholder="Address of Company">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description" class="col-sm-2 control-label">Description</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control col-sm-12" rows="4" placeholder="Add some Description"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cno" class="col-sm-2 control-label">Contact no</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="cno" placeholder="Contact No.">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="logo" class="col-sm-2 control-label">Logo</label>
+                                            <div class="">
+                                                <input type="file" id="logo">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" value="Save"/>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
