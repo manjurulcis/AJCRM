@@ -37,8 +37,8 @@
                                 <td class=" ">{{$data->email}}</td>
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
-                                    <a href="{{url('/company/view/'.$data->id)}}" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Details"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Edit"><i class="fa fa-edit m-right-xs"></i></a>
+                                    <button  class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="Details" id="viewbtn" value="{{$data->id}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button id="editbtn" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="Edit"><i class="fa fa-edit m-right-xs"></i></button>
                                     <a href="{{url('/company/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
                                 </td>
@@ -78,7 +78,7 @@
                                         <div class="form-group">
                                             <label for="description" class="col-sm-2 control-label">Description</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control col-sm-12" rows="4" placeholder="Add some Description"></textarea>
+                                                <textarea class="form-control col-sm-12" rows="4" placeholder="Add some Description" id="description"></textarea>
                                             </div>
                                         </div>
 
@@ -97,7 +97,7 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="submit" class="btn btn-primary" value="Save"/>
+                                        <input type="submit" class="btn btn-primary" value="Save Changes" id="savebtn"/>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
@@ -117,6 +117,13 @@
     $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var recipient = button.data('whatever') // Extract info from data-* attributes
+        if (recipient == 'Details') {
+            alert('Time to Hide');
+            $('#savebtn').hide();
+        }
+        else if(recipient == 'Edit'){
+            $('#savebtn').show();
+        }
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
@@ -124,7 +131,32 @@
 
     });
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(document).ready(function () {
+
+        $('#viewbtn').click(function () {
+            var id = $(this).val();
+            alert(id);
+            $.ajax({
+                type: "GET",
+                url: base_url + "/company/view/" + id,
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('address').value = data.address;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('description').value = data.description;
+                    document.getElementById('cno').value = data.contact_no;
+                    document.getElementById('logo').value = data.logo;
+                }
+            });
+        });
+
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
