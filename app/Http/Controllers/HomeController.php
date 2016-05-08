@@ -101,6 +101,11 @@ class HomeController extends Controller {
         return view("team_list")->with('team_list', $data);
     }
 
+    public function view_team(Request $request){
+        $team_info = Team::find($request->id);
+        return view("team_info")->with('team_info', $team_info);
+    }
+
     public function delete_team(Request $request) {
         $team_info = Team::find($request->id);
         $team_info->delete();

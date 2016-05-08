@@ -34,6 +34,7 @@ Route::post('/update-company', 'HomeController@update_company');
 Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
+Route::get('/team/view/{id}', 'HomeController@view_team');
 Route::get('/team/delete/{id}', 'HomeController@delete_team');
 
 
