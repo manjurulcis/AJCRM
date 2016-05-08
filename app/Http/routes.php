@@ -29,6 +29,7 @@ Route::get('/company/view/{id}', function($id) {
         return Response::json($data);
     }
 });
+Route::post('/update-company', 'HomeController@update_company');
 
 Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');

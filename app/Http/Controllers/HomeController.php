@@ -43,6 +43,23 @@ class HomeController extends Controller {
         $store->save();
         return redirect::back();
     }
+    public function update_company(Request $data) {
+        $store = addCompany::find($data->cid);
+        $store->name = $data->cname;
+        $store->email = $data->cemail;
+        $store->description = $data->cdescription;
+        $store->address = $data->caddress;
+        $store->contact_no = $data->cno;
+
+        $destinationPath = 'upload/company'; // upload path
+        $extension = $data->file('clogo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('clogo')->move($destinationPath, $fileName);
+
+        $store->logo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
+    }
 
     public function company_list() {
         $data = addCompany::all();
