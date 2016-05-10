@@ -34,7 +34,7 @@
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
                                     <a href="{{url('team/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-edit m-right-xs"></i></button>
+                                    <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#myModal" title="Edit" value="{{$data->id}}"><i class="fa fa-edit m-right-xs"></i></button>
                                     <a href="{{url('team/delete/'.$data->id)}}" class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -51,11 +51,49 @@
                                     <h4 class="modal-title" id="myModalLabel">Edit</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    {!! Form::open(array('url' => '/update-team','method'=>'post','files'=>true,'class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
+                                    <input type="hidden" id="id" name="id">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="team-name">Team Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-6 col-xs-12">
+                                            <input type="text" name="tname" id="team-name" required="required" placeholder="name of the team" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-6 col-xs-12">
+                                            <select class="select2_group form-control" name="tcompany" id="company-name">
+                                                <optgroup label="Bangladesh">
+                                                    @foreach($companies as $data)
+                                                    <option value="{{$data->id}}" class="">{{$data->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logo">Logo <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-6 col-xs-12">
+                                            <input type="file" name="tlogo" id="logo" required="required" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
+                                        <div class="col-md-9 col-sm-6 col-xs-12">
+                                            <textarea name="tdescription" id="description" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Add some description of your team"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group modal-footer">
+                                        <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <input type="submit" class="btn btn-success" value="Submit">
+                                            <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal">
+                                        </div>
+                                    </div>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
@@ -64,15 +102,30 @@
             </div>
         </div>
 
-        <br />
-        <br />
-        <br />
+        <br /><br /><br />
 
     </div>
 </div>
 <!-- /page content -->
 
 <script>
+    $('.editbtn').click(function () {
+        var id = $(this).val();
+        alert(id);
+        $.ajax({
+            type: "GET",
+            url: base_url + "/team/edit/" + id,
+            success: function (data) {
+                console.log(data);
+                $('#id').val(data.id);
+                $('#team-name').val(data.name);
+                $('#description').val(data.description);
+                $('#company-name').val(data.company_id);
+                $('#logo').val(data.logo);
+            }
+        });
+    });
+
     $(document).ready(function () {
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',

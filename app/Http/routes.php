@@ -35,6 +35,13 @@ Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
 Route::get('/team/view/{id}', 'HomeController@view_team');
+Route::get('/team/edit/{id}', function($id) {
+    if (Request::ajax()) {
+        $data = App\Team::find($id);
+        return Response::json($data);
+    }
+});
+Route::post('/update-team', 'HomeController@update_team');
 Route::get('/team/delete/{id}', 'HomeController@delete_team');
 
 

@@ -94,11 +94,13 @@ class HomeController extends Controller {
     }
 
     public function team_list() {
+        $companies = addCompany::select('id', 'name')->get();
         $data = DB::table('teams')
                 ->join('companies', 'teams.company_id', '=', 'companies.id')
                 ->select('teams.*', 'companies.name as company_name')
                 ->get();
-        return view("team_list")->with('team_list', $data);
+        return view("team_list")->with('team_list', $data)
+                ->with('companies',$companies);
     }
 
     public function view_team(Request $request){
@@ -110,6 +112,22 @@ class HomeController extends Controller {
         return view("team_info")->with('team_info', $team_info);
     }
 
+    public function update_team(Request $data) {
+        $store = Team::find($data->id);;
+        $store->name = $data->tname;
+        $store->company_id = $data->tcompany;
+        $store->description = $data->tdescription;
+
+        $destinationPath = 'upload/team'; // upload path
+        $extension = $data->file('tlogo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('tlogo')->move($destinationPath, $fileName);
+
+        $store->logo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
+    }
+    
     public function delete_team(Request $request) {
         $team_info = Team::find($request->id);
         $team_info->delete();

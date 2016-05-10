@@ -11,8 +11,6 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                {{--<img class="media-object" src="{{URL::asset('images')}}/picture.jpg" alt="Team logo" height="250px" width="--}}
-                                {{--300px">--}}
                                 <img class="media-object" src="{{URL::asset($team_info->logo)}}" alt="Team logo" height="250px" width="250px">
                             </a>
                         </div>
