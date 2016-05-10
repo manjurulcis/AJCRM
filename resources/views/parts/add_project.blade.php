@@ -33,7 +33,7 @@
                                 <select class="select2_group form-control" name="client">
                                     <optgroup label="Local">
                                         @foreach($client_info as $data)
-                                        <option value="{{$data->client_id}}">{{$data->client_name}}</option>
+                                        <option value="{{$data->id}}">{{$data->client_name}}</option>
                                         @endforeach
                                     </optgroup>
                                 </select>

@@ -165,6 +165,16 @@ class HomeController extends Controller {
         return view("project_list")->with('project_info', $data);
     }
 
+    public function view_project(Request $request){
+        
+        $project_info = DB::table('projects')
+                        ->where("projects.id",'=',$request->id)
+                        ->join('clients', 'clients.id', '=', 'projects.client_id')
+                        ->select('projects.*', 'clients.client_name')
+                        ->first();
+        return view("project_info")->with('project_info', $project_info);
+    }
+    
     public function delete_project(Request $request) {
         $project_info = project::find($request->id);
         $project_info->delete();
