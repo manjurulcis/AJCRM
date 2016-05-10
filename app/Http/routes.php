@@ -54,6 +54,7 @@ Route::get('/project/delete/{id}', 'HomeController@delete_project');
 Route::get('/add-client', 'HomeController@add_client');
 Route::post('/save-client', 'HomeController@save_client');
 Route::get('/client-list', 'HomeController@client_list');
+Route::get('/client/view/{id}', 'HomeController@view_client');
 Route::get('/client/delete/{id}', 'HomeController@delete_client');
 
 

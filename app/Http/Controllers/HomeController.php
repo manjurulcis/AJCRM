@@ -135,7 +135,7 @@ class HomeController extends Controller {
     }
     
     public function add_project() {
-        $data = client::select('client_id', 'client_name')->get();
+        $data = client::select('id', 'client_name')->get();
         return view("add_project")->with('client_info', $data);
     }
 
@@ -196,6 +196,11 @@ class HomeController extends Controller {
     public function client_list() {
         $data = client::all();
         return view("client_list")->with('client_list', $data);
+    }
+
+    public function view_client(Request $request) {
+        $data = client::find($request->id);
+        return view("client_info")->with('client_info', $data);
     }
 
     public function delete_client(Request $request) {
