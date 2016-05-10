@@ -202,6 +202,24 @@ class HomeController extends Controller {
         $data = client::find($request->id);
         return view("client_info")->with('client_info', $data);
     }
+    
+    public function update_client(Request $data) {
+        $store = client::find($data->id);
+        $store->client_name = $data->name;
+        $store->client_address = $data->address;
+        $store->client_email = $data->email;
+        $store->birthdate = $data->bdate;
+        $store->contact_no = $data->cno;
+
+        $destinationPath = 'upload/client'; // upload path
+        $extension = $data->file('photo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('photo')->move($destinationPath, $fileName);
+
+        $store->client_photo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
+    }
 
     public function delete_client(Request $request) {
         $client_info = client::find($request->id);

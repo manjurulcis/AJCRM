@@ -55,6 +55,13 @@ Route::get('/add-client', 'HomeController@add_client');
 Route::post('/save-client', 'HomeController@save_client');
 Route::get('/client-list', 'HomeController@client_list');
 Route::get('/client/view/{id}', 'HomeController@view_client');
+Route::get('/client/edit/{id}', function($id){
+    if (Request::ajax()) {
+        $data = App\client::find($id);
+        return Response::json($data);
+    }
+});
+Route::post('/update-client', 'HomeController@update_client');
 Route::get('/client/delete/{id}', 'HomeController@delete_client');
 
 

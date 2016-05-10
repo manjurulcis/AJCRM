@@ -109,9 +109,11 @@
 <!-- /page content -->
 
 <script>
-    $('.editbtn').click(function () {
+    
+
+    $(document).ready(function () {
+        $('.editbtn').click(function () {
         var id = $(this).val();
-        alert(id);
         $.ajax({
             type: "GET",
             url: base_url + "/team/edit/" + id,
@@ -125,8 +127,7 @@
             }
         });
     });
-
-    $(document).ready(function () {
+        
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
