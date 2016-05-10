@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Hello">
+  <component name="PublishConfigData" serverName="Ajtech">
     <serverData>
-      <paths name="Hello">
+      <paths name="Ajtech">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="AJCRM" />

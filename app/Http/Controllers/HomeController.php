@@ -102,7 +102,11 @@ class HomeController extends Controller {
     }
 
     public function view_team(Request $request){
-        $team_info = Team::find($request->id);
+        $team_info = DB::table('teams')
+                        ->where("teams.id",'=',$request->id)
+                        ->join('companies', 'teams.company_id', '=', 'companies.id')
+                        ->select('teams.*', 'companies.name as company_name')
+                        ->first();
         return view("team_info")->with('team_info', $team_info);
     }
 

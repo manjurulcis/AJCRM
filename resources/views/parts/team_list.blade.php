@@ -34,7 +34,7 @@
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
                                     <a href="{{url('team/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="" class="btn btn-warning" title="Edit"><i class="fa fa-edit m-right-xs"></i></a>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" title="Edit"><i class="fa fa-edit m-right-xs"></i></button>
                                     <a href="{{url('team/delete/'.$data->id)}}" class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -42,6 +42,24 @@
                         </tbody>
 
                     </table>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Edit</h4>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
