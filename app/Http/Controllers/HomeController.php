@@ -158,11 +158,13 @@ class HomeController extends Controller {
     }
 
     public function project_list() {
-        $data = DB::table('projects')
+        $client_info = client::select('id', 'client_name')->get();
+        $project_list = DB::table('projects')
                 ->join('clients', 'projects.client_id', '=', 'clients.id')
                 ->select('projects.*', 'clients.client_name')
                 ->get();
-        return view("project_list")->with('project_info', $data);
+        return view("project_list")->with('project_info', $project_list)
+                ->with('client_info', $client_info);
     }
 
     public function view_project(Request $request){

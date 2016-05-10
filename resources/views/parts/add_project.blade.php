@@ -66,10 +66,10 @@
 
 
                         <div class="ln_solid"></div>
-                        <div class="form-group">
+                        <div class="form-group modal-footer">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <input type="submit" class="btn btn-success" value="Submit">
-                                <input type="submit" class="btn btn-primary" value="Cancel">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             </div>
                         </div>
                     {!! Form::close() !!}

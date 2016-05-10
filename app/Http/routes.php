@@ -49,6 +49,12 @@ Route::get('/add-project', 'HomeController@add_project');
 Route::post('/save-project', 'HomeController@save_project');
 Route::get('/project-list', 'HomeController@project_list');
 Route::get('/project/view/{id}', 'HomeController@view_project');
+Route::get('/project/edit/{id}', function($id){
+    if (Request::ajax()) {
+        $data = App\project::find($id);
+        return Response::json($data);
+    }
+});
 Route::get('/project/delete/{id}', 'HomeController@delete_project');
 
 

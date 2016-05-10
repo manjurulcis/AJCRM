@@ -109,25 +109,23 @@
 <!-- /page content -->
 
 <script>
-    
-
     $(document).ready(function () {
         $('.editbtn').click(function () {
-        var id = $(this).val();
-        $.ajax({
-            type: "GET",
-            url: base_url + "/team/edit/" + id,
-            success: function (data) {
-                console.log(data);
-                $('#id').val(data.id);
-                $('#team-name').val(data.name);
-                $('#description').val(data.description);
-                $('#company-name').val(data.company_id);
-                $('#logo').val(data.logo);
-            }
+            var id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: base_url + "/team/edit/" + id,
+                success: function (data) {
+                    console.log(data);
+                    $('#id').val(data.id);
+                    $('#team-name').val(data.name);
+                    $('#description').val(data.description);
+                    $('#company-name').val(data.company_id);
+                    $('#logo').val(data.logo);
+                }
+            });
         });
-    });
-        
+
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
