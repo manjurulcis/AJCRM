@@ -22,6 +22,8 @@ class HomeController extends Controller {
         return view("dashboard");
     }
 
+//    ============= Company Section ===========
+
     public function add_company() {
         return view("add_company");
     }
@@ -44,6 +46,16 @@ class HomeController extends Controller {
         return redirect::back();
     }
 
+    public function company_list() {
+        $data = addCompany::all();
+        return view("company_list")->with('company_list', $data);
+    }
+
+    public function view_company(Request $request) {
+        $company_info = addCompany::find($request->id);
+        return view("company_info")->with('company_info', $company_info);
+    }
+
     public function update_company(Request $data) {
         $store = addCompany::find($data->cid);
         $store->name = $data->cname;
@@ -62,22 +74,13 @@ class HomeController extends Controller {
         return redirect::back();
     }
 
-    public function company_list() {
-        $data = addCompany::all();
-        return view("company_list")->with('company_list', $data);
-    }
-
     public function delete_company(Request $request) {
         $company_info = addCompany::find($request->id);
         $company_info->delete();
         return redirect::back();
     }
 
-    public function view_company(Request $request) {
-        $company_info = addCompany::find($request->id);
-//        dd($company_info);
-        return view("company_info")->with('company_info', $company_info);
-    }
+//    ============= Team Section ===========
 
     public function add_team() {
         $companies = addCompany::select('id', 'name')->get();
@@ -141,6 +144,8 @@ class HomeController extends Controller {
         $team_info->delete();
         return redirect::back();
     }
+
+//    ============= Project Section ===========
 
     public function add_project() {
         $data = client::select('id', 'client_name')->get();
@@ -209,6 +214,8 @@ class HomeController extends Controller {
         return redirect::back();
     }
 
+//    ============= Client Section ===========
+
     public function add_client() {
         return view("add_client");
     }
@@ -264,6 +271,8 @@ class HomeController extends Controller {
         $client_info->delete();
         return redirect::back();
     }
+
+//    ============= User Section ===========
 
     public function view_profile(Request $request) {
         $user_info = User::find($request->id);
