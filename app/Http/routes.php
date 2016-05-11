@@ -22,14 +22,15 @@ Route::get('/profile/delete/{id}', 'HomeController@delete_profile');
 Route::get('/add-company', 'HomeController@add_company');
 Route::post('/save-company', 'HomeController@save_company');
 Route::get('/company-list', 'HomeController@company_list');
-Route::get('/company/delete/{id}', 'HomeController@delete_company');
-Route::get('/company/view/{id}', function($id) {
+Route::get('/company/view/{id}', 'HomeController@view_company');
+Route::get('/company/edit/{id}', function($id) {
     if (Request::ajax()) {
         $data = App\addCompany::find($id);
         return Response::json($data);
     }
 });
 Route::post('/update-company', 'HomeController@update_company');
+Route::get('/company/delete/{id}', 'HomeController@delete_company');
 
 Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');
@@ -55,6 +56,7 @@ Route::get('/project/edit/{id}', function($id){
         return Response::json($data);
     }
 });
+Route::post('/update-project', 'HomeController@update_project');
 Route::get('/project/delete/{id}', 'HomeController@delete_project');
 
 

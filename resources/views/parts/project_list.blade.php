@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="modal-body">
                                     {!! Form::open(array('url' => '/update-project','method'=>'post','files'=>true,'class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
-
+                                    <input type="hidden" id="id" name="id">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project-name">Project Name <span class="required">*</span>
                                         </label>
@@ -104,10 +104,10 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Status </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <div id="status" class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-default btn-inactive active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="status" id="status" value="0"> Inactive </label>
-                                                <label class="btn btn-default btn-active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="status" id="status" value="1" checked=""> Active </label>
+                                                <label class="btn btn-default active" id="btn-inactive" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="radio" name="status" value="0" checked="true"> Inactive </label>
+                                                <label class="btn btn-default" id="btn-active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="radio" name="status" value="1"> Active </label>
                                             </div>
                                         </div>
                                     </div>
@@ -155,19 +155,18 @@
                 success: function (data) {
                     console.log(data);
                     $('#id').val(data.id);
+                    if(data.project_status){
+                        $("#btn-inactive").removeClass("active");
+                        $("#btn-active").addClass('active');
+                    }else{
+                        $("#btn-inactive").addClass("active");
+                        $("#btn-active").removeClass('active');
+                    }
                     $('#project-name').val(data.project_title);
                     $('#description').val(data.project_desc);
                     $('#client').val(data.client_id);
                     $('#enddate').val(data.end_time);
-                    $('#logo').val(data.logo);
-                    if(data.project_status){
-                        $('.btn-inactive').removeClass('active');
-                        $('.btn-active').addClass('active');
-                    }
-                    
-//                    $('.status').val(data.project_status);
-//                    $("#status").prop("checked", data.project_status)
-                    
+                    $('#logo').val(data.logo);               
                 }
             });
         });

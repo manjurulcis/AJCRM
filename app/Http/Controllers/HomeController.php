@@ -43,6 +43,7 @@ class HomeController extends Controller {
         $store->save();
         return redirect::back();
     }
+
     public function update_company(Request $data) {
         $store = addCompany::find($data->cid);
         $store->name = $data->cname;
@@ -71,7 +72,13 @@ class HomeController extends Controller {
         $company_info->delete();
         return redirect::back();
     }
-    
+
+    public function view_company(Request $request) {
+        $company_info = addCompany::find($request->id);
+//        dd($company_info);
+        return view("company_info")->with('company_info', $company_info);
+    }
+
     public function add_team() {
         $companies = addCompany::select('id', 'name')->get();
         return view("add_team")->with('companies', $companies);
@@ -100,20 +107,21 @@ class HomeController extends Controller {
                 ->select('teams.*', 'companies.name as company_name')
                 ->get();
         return view("team_list")->with('team_list', $data)
-                ->with('companies',$companies);
+                        ->with('companies', $companies);
     }
 
-    public function view_team(Request $request){
+    public function view_team(Request $request) {
         $team_info = DB::table('teams')
-                        ->where("teams.id",'=',$request->id)
-                        ->join('companies', 'teams.company_id', '=', 'companies.id')
-                        ->select('teams.*', 'companies.name as company_name')
-                        ->first();
+                ->where("teams.id", '=', $request->id)
+                ->join('companies', 'teams.company_id', '=', 'companies.id')
+                ->select('teams.*', 'companies.name as company_name')
+                ->first();
         return view("team_info")->with('team_info', $team_info);
     }
 
     public function update_team(Request $data) {
-        $store = Team::find($data->id);;
+        $store = Team::find($data->id);
+        ;
         $store->name = $data->tname;
         $store->company_id = $data->tcompany;
         $store->description = $data->tdescription;
@@ -127,13 +135,13 @@ class HomeController extends Controller {
         $store->save();
         return redirect::back();
     }
-    
+
     public function delete_team(Request $request) {
         $team_info = Team::find($request->id);
         $team_info->delete();
         return redirect::back();
     }
-    
+
     public function add_project() {
         $data = client::select('id', 'client_name')->get();
         return view("add_project")->with('client_info', $data);
@@ -164,25 +172,43 @@ class HomeController extends Controller {
                 ->select('projects.*', 'clients.client_name')
                 ->get();
         return view("project_list")->with('project_info', $project_list)
-                ->with('client_info', $client_info);
+                        ->with('client_info', $client_info);
     }
 
-    public function view_project(Request $request){
-        
+    public function view_project(Request $request) {
+
         $project_info = DB::table('projects')
-                        ->where("projects.id",'=',$request->id)
-                        ->join('clients', 'clients.id', '=', 'projects.client_id')
-                        ->select('projects.*', 'clients.client_name')
-                        ->first();
+                ->where("projects.id", '=', $request->id)
+                ->join('clients', 'clients.id', '=', 'projects.client_id')
+                ->select('projects.*', 'clients.client_name')
+                ->first();
         return view("project_info")->with('project_info', $project_info);
     }
-    
+
+    public function update_project(Request $data) {
+        $store = project::find($data->id);
+        $store->client_id = $data->client;
+        $store->project_title = $data->name;
+        $store->project_desc = $data->description;
+        $store->project_status = $data->status;
+        $store->end_time = $data->enddate;
+
+        $destinationPath = 'upload/project'; // upload path
+        $extension = $data->file('logo')->getClientOriginalExtension();
+        $fileName = rand(1, 999) . '.' . $extension;
+        $data->file('logo')->move($destinationPath, $fileName);
+
+        $store->logo = $destinationPath . '/' . $fileName;
+        $store->save();
+        return redirect::back();
+    }
+
     public function delete_project(Request $request) {
         $project_info = project::find($request->id);
         $project_info->delete();
         return redirect::back();
     }
-    
+
     public function add_client() {
         return view("add_client");
     }
@@ -214,7 +240,7 @@ class HomeController extends Controller {
         $data = client::find($request->id);
         return view("client_info")->with('client_info', $data);
     }
-    
+
     public function update_client(Request $data) {
         $store = client::find($data->id);
         $store->client_name = $data->name;
@@ -238,7 +264,7 @@ class HomeController extends Controller {
         $client_info->delete();
         return redirect::back();
     }
-    
+
     public function view_profile(Request $request) {
         $user_info = User::find($request->id);
         return view("profile")->with('user_info', $user_info);
