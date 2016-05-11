@@ -1,8 +1,3 @@
-<?php
-//echo "<pre>";
-//print_r($user_info);
-//echo "</pre>";
-?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -39,7 +34,7 @@
                             <div id="crop-avatar">
                                 <!-- Current avatar -->
                                 <div class="avatar-view" title="Change the avatar">
-                                    <img src="{{URL::asset('images')}}/picture.jpg" alt="Avatar">
+                                    <img src="{{URL::asset('images')}}/user.png" alt="Avatar">
                                 </div>
 
                                 <!-- Cropping modal -->
@@ -164,7 +159,7 @@
                                         
                                         <div class="form-group">
                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                <button type="submit" class="btn btn-success">Save changes</button>
+                                                <button type="submit" class="btn btn-success">Update</button>
                                                 <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
@@ -240,7 +235,7 @@
                                     <!-- start recent activity -->
                                     <ul class="messages">
                                         <li>
-                                            <img src="{{URL::asset('images')}}/img.jpg" class="avatar" alt="Avatar">
+                                            <img src="{{URL::asset('images')}}/user.png" class="avatar" alt="Avatar">
                                             <div class="message_date">
                                                 <h3 class="date text-info">24</h3>
                                                 <p class="month">May</p>
@@ -256,7 +251,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <img src="{{URL::asset('images')}}/img.jpg" class="avatar" alt="Avatar">
+                                            <img src="{{URL::asset('images')}}/user.png" class="avatar" alt="Avatar">
                                             <div class="message_date">
                                                 <h3 class="date text-error">21</h3>
                                                 <p class="month">May</p>
@@ -272,7 +267,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <img src="{{URL::asset('images')}}/img.jpg" class="avatar" alt="Avatar">
+                                            <img src="{{URL::asset('images')}}/user.png" class="avatar" alt="Avatar">
                                             <div class="message_date">
                                                 <h3 class="date text-info">24</h3>
                                                 <p class="month">May</p>
@@ -288,7 +283,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <img src="{{URL::asset('images')}}/img.jpg" class="avatar" alt="Avatar">
+                                            <img src="{{URL::asset('images')}}/user.png" class="avatar" alt="Avatar">
                                             <div class="message_date">
                                                 <h3 class="date text-error">21</h3>
                                                 <p class="month">May</p>

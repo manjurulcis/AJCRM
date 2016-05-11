@@ -36,13 +36,4 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(function () {
-            $('input[name="bdate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true
-            });
-        });
-    </script>
-
 </div>

@@ -33,8 +33,8 @@
                                 <td class=" "><?php echo e($user->email); ?></td>
                                 <td class=" "><?php echo e(Date('d-m-Y   h:i:s a',strtotime($user->created_at))); ?> </td>
                                 <td class=" last">
-                                    <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit m-right-xs"></i></a>                                    
+                                    <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a class="btn btn-warning" data-toggle="modal" data-target="#editModal" title="Edit"><i class="fa fa-edit m-right-xs"></i></a>                                    
                                     <!-- Modal -->
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
@@ -72,7 +72,7 @@
 
                                                         <div class="form-group">
                                                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                                <button type="submit" class="btn btn-success">Save changes</button>
+                                                                <button type="submit" class="btn btn-success">Update</button>
                                                                 <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
@@ -83,8 +83,11 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <a href="<?php echo e(URL::to("profile/delete/$user->id")); ?>" class="btn btn-danger"><i class="fa fa-trash m-right-xs"></i></a>
+                                    <?php if((Auth::user()->id) == $user->id): ?>
+                                    <button href="" class="btn btn-danger" disabled="disabled" title="Delete"><i class="fa fa-trash m-right-xs"></i></button>
+                                    <?php else: ?>
+                                    <a href="<?php echo e(URL::to("profile/delete/$user->id")); ?>" class="btn btn-danger" title="Delete"><i class="fa fa-trash m-right-xs"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -95,23 +98,21 @@
             </div>
         </div>
 
-        <br />
-        <br />
-        <br />
+        <br /><br /><br />
 
     </div>
 </div>
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
-        });
+    });
 
-        var asInitVals = new Array();
-        $(document).ready(function () {
+    var asInitVals = new Array();
+    $(document).ready(function () {
         var oTable = $('#example').dataTable({
             "oLanguage": {
                 "sSearch": "Search all columns:"
@@ -121,7 +122,7 @@
                     'bSortable': false,
                     'aTargets': [0]
                 } //disables sorting for column one
-        ],
+            ],
             'iDisplayLength': 12,
             "sPaginationType": "full_numbers",
             "dom": 'T<"clear">lfrtip',
@@ -148,5 +149,5 @@
                 this.value = asInitVals[$("tfoot input").index(this)];
             }
         });
-        });
+    });
 </script>

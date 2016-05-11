@@ -7,7 +7,11 @@
                     <h2>Project List <small>info</small></h2>
                     <div class="clearfix"></div>
                 </div>
-
+                <?php
+                if (Session::has('msg')) {
+                    echo "<h4 style='color:red'>* " . Session::get('msg') . "</h4>";
+                }
+                ?>
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
@@ -39,9 +43,9 @@
                                 @endif
                                 <td class="a-right a-right ">{{$data->end_time}}</td>
                                 <td class=" last">
-                                    <a href="{{URL::to('project/view/'.$data->id)}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{URL::to('project/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#myModal" title="Edit" value="{{$data->id}}"><i class="fa fa-edit m-right-xs"></i></button>
-                                    <a href="{{URL::to('project/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="{{URL::to('project/delete/'.$data->id)}}" class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -70,13 +74,13 @@
 
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Project Description</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Project Description</label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <textarea name="description" id="description" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Project ..."></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> Client </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="client"> Client </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <select class="select2_group form-control" name="client" id="client">
                                                 <optgroup label="Local">
@@ -88,20 +92,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="edate" class="control-label col-md-3 col-sm-3 col-xs-12">Deadline </label>
+                                        <label for="edate" class="control-label col-md-3 col-sm-3 col-xs-12" for="enddate">Deadline </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <input type="text" name="enddate" id="enddate" /> 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="logo" class="control-label col-md-3 col-sm-3 col-xs-12">Logo</label>
+                                        <label for="logo" class="control-label col-md-3 col-sm-3 col-xs-12" for="logo">Logo</label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <input id="logo" type="file" name="logo">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Status </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <div id="status" class="btn-group" data-toggle="buttons">
                                                 <label class="btn btn-default active" id="btn-inactive" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -114,7 +118,7 @@
 
                                     <div class="form-group modal-footer">
                                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" value="Submit">
+                                            <input type="submit" class="btn btn-success" value="Update">
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                                         </div>
                                     </div>
@@ -155,10 +159,10 @@
                 success: function (data) {
                     console.log(data);
                     $('#id').val(data.id);
-                    if(data.project_status){
+                    if (data.project_status) {
                         $("#btn-inactive").removeClass("active");
                         $("#btn-active").addClass('active');
-                    }else{
+                    } else {
                         $("#btn-inactive").addClass("active");
                         $("#btn-active").removeClass('active');
                     }
@@ -166,7 +170,7 @@
                     $('#description').val(data.project_desc);
                     $('#client').val(data.client_id);
                     $('#enddate').val(data.end_time);
-                    $('#logo').val(data.logo);               
+                    $('#logo').val(data.logo);
                 }
             });
         });

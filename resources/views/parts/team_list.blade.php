@@ -8,6 +8,11 @@
                     <h2>Team List <small>info</small></h2>
                     <div class="clearfix"></div>
                 </div>
+                <?php
+                if (Session::has('msg')) {
+                    echo "<h4 style='color:red'>* " . Session::get('msg') . "</h4>";
+                }
+                ?>
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
@@ -62,7 +67,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="company-name">Company <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <select class="select2_group form-control" name="tcompany" id="company-name">
                                                 <optgroup label="Bangladesh">
@@ -89,7 +94,7 @@
                                     </div>
                                     <div class="form-group modal-footer">
                                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" value="Submit">
+                                            <input type="submit" class="btn btn-success" value="Update">
                                             <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal">
                                         </div>
                                     </div>

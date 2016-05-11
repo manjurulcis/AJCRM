@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav navbar-right">
         <li class="">
             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <img src="<?php echo e(URL::asset('images')); ?>/img.jpg" alt=""><?php echo e(Auth::user()->username); ?>
+                <img src="<?php echo e(URL::asset('images')); ?>/user.png" alt=""><?php echo e(Auth::user()->username); ?>
 
                 <span class=" fa fa-angle-down"></span>
             </a>
@@ -36,7 +36,7 @@
                 <li>
                     <a>
                         <span class="image">
-                            <img src="<?php echo e(URL::asset('images')); ?>/img.jpg" alt="Profile Image" />
+                            <img src="<?php echo e(URL::asset('images')); ?>/user.png" alt="Profile Image" />
                         </span>
                         <span>
                             <span>John Smith</span>
@@ -50,7 +50,7 @@
                 <li>
                     <a>
                         <span class="image">
-                            <img src="<?php echo e(URL::asset('images')); ?>/img.jpg" alt="Profile Image" />
+                            <img src="<?php echo e(URL::asset('images')); ?>/user.png" alt="Profile Image" />
                         </span>
                         <span>
                             <span>John Smith</span>
@@ -64,7 +64,7 @@
                 <li>
                     <a>
                         <span class="image">
-                            <img src="<?php echo e(URL::asset('images')); ?>/img.jpg" alt="Profile Image" />
+                            <img src="<?php echo e(URL::asset('images')); ?>/user.png" alt="Profile Image" />
                         </span>
                         <span>
                             <span>John Smith</span>
@@ -78,7 +78,7 @@
                 <li>
                     <a>
                         <span class="image">
-                            <img src="<?php echo e(URL::asset('images')); ?>/img.jpg" alt="Profile Image" />
+                            <img src="<?php echo e(URL::asset('images')); ?>/user.png" alt="Profile Image" />
                         </span>
                         <span>
                             <span>John Smith</span>

@@ -7,7 +7,11 @@
                     <h2>Client List <small>info</small></h2>
                     <div class="clearfix"></div>
                 </div>
-
+                <?php
+                if (Session::has('msg')) {
+                    echo "<h4 style='color:red'>* " . Session::get('msg') . "</h4>";
+                }
+                ?>
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
@@ -38,9 +42,9 @@
                                 <td class=" ">{{$data->client_address}}</td>
 
                                 <td class=" last">
-                                    <a href="{{url('client/view/'.$data->id)}}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="{{url('client/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#myModal" title="Edit" value="{{$data->id}}"><i class="fa fa-edit m-right-xs"></i></button>
-                                    <a href="{{url('client/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('client/delete/'.$data->id)}}" class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -72,19 +76,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
+                                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <input id="email" class="form-control col-md-7 col-xs-12" required="required" type="email" placeholder="Client's email" name="email">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="birthdate" class="control-label col-md-3 col-sm-3 col-xs-12">Birth Date </label>
+                                        <label for="birthdate" class="control-label col-md-3 col-sm-3 col-xs-12" for="birthdate">Birth Date </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <input type="text" name="bdate" id="birthdate" /> 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="cno" class="control-label col-md-3 col-sm-3 col-xs-12">Contact no. </label>
+                                        <label for="cno" class="control-label col-md-3 col-sm-3 col-xs-12" for="cno">Contact no. </label>
                                         <div class="col-md-9 col-sm-6 col-xs-12">
                                             <input id="cno" class="form-control col-md-7 col-xs-12" type="text" placeholder="Client's contact no" name="cno">
                                         </div>
@@ -98,7 +102,7 @@
 
                                     <div class="form-group modal-footer">
                                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" value="Submit">
+                                            <input type="submit" class="btn btn-success" value="Update">
                                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                                         </div>
                                     </div>
@@ -111,9 +115,7 @@
             </div>
         </div>
 
-        <br />
-        <br />
-        <br />
+        <br /><br /><br />
 
     </div>
 </div>
@@ -121,11 +123,11 @@
 
 <script>
     $(function () {
-            $('input[name="bdate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-            });
+        $('input[name="bdate"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
         });
+    });
     $(document).ready(function () {
         $('.editbtn').click(function () {
             var id = $(this).val();

@@ -11,6 +11,7 @@ use App\client;
 use App\project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller {
 
@@ -19,12 +20,14 @@ class HomeController extends Controller {
     }
 
     public function index() {
+        Session::put('msg', "Hello world");
         return view("dashboard");
     }
 
 //    ============= Company Section ===========
 
     public function add_company() {
+        
         return view("add_company");
     }
 
@@ -43,6 +46,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Added Successfully');
         return redirect::back();
     }
 
@@ -71,6 +75,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
     }
 
@@ -100,6 +105,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Added Successfully ');
         return redirect::back();
     }
 
@@ -136,6 +142,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
     }
 
@@ -167,6 +174,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Added Successfully ');
         return redirect::back();
     }
 
@@ -205,6 +213,7 @@ class HomeController extends Controller {
 
         $store->logo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', ' Updated Successfully ');
         return redirect::back();
     }
 
@@ -235,6 +244,7 @@ class HomeController extends Controller {
 
         $store->client_photo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Added Successfully ');
         return redirect::back();
     }
 
@@ -263,6 +273,7 @@ class HomeController extends Controller {
 
         $store->client_photo = $destinationPath . '/' . $fileName;
         $store->save();
+        Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
     }
 
@@ -290,5 +301,4 @@ class HomeController extends Controller {
         $data = User::all();
         return view("users_list")->with('users_list', $data);
     }
-
 }

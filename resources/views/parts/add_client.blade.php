@@ -7,6 +7,10 @@
 
                     <div class="clearfix"></div>
                 </div>
+                <?php 
+                if (Session::has('msg')) {
+                echo "<h4 style='color:red'>* ".Session::get('msg')."</h4>";
+                }?>
                 <div class="x_content">
                     <br />
                     {!! Form::open(array('url' => '/save-client','method'=>'post','files'=>true,'class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
@@ -27,7 +31,7 @@
                         <div class="form-group">
                             <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="middle-name" class="form-control col-md-7 col-xs-12" required="required" type="email" placeholder="Client's email" name="email">
+                                <input id="email" class="form-control col-md-7 col-xs-12" type="email"  required="required"  placeholder="Client's email" name="email">
                             </div>
                         </div>
                         <div class="form-group">
@@ -51,8 +55,8 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <input type="submit" class="btn btn-success" value="Submit">
-                                <input type="submit" class="btn btn-primary" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Save">
+                                <input type="reset" class="btn btn-primary" value="Reset">
                             </div>
                         </div>
                     {!! Form::close() !!}
