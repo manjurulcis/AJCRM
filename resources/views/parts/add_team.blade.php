@@ -31,7 +31,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" name="tname" id="team-name" placeholder="name of the team" class="form-control col-md-7 col-xs-12">
-                            @if ($errors->has('tname'))<p style="color:red;">{!!$errors->first('tname')!!}</p>@endif  
+                            @if ($errors->has('tname'))<p style="color:red;">* {!!$errors->first('tname')!!}</p>@endif  
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
                                 </optgroup>
 
                             </select>
-                            @if ($errors->has('tcompany'))<p style="color:red;">{!!$errors->first('tcompany')!!}</p>@endif  
+                            @if ($errors->has('tcompany'))<p style="color:red;">* {!!$errors->first('tcompany')!!}</p>@endif  
                         </div>
                     </div>
                     <div class="form-group">
@@ -54,14 +54,14 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="file" name="tlogo" id="logo">
-                            @if ($errors->has('tlogo'))<p style="color:red;">{!!$errors->first('tlogo')!!}</p>@endif  
+                            @if ($errors->has('tlogo'))<p style="color:red;">* {!!$errors->first('tlogo')!!}</p>@endif  
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <textarea name="tdescription" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Add some description of your team" id="description"></textarea>
-                            @if ($errors->has('tdescription'))<p style="color:red;">{!!$errors->first('tdescription')!!}</p>@endif  
+                            @if ($errors->has('tdescription'))<p style="color:red;">* {!!$errors->first('tdescription')!!}</p>@endif  
                         </div>
                     </div>
                     <div class="ln_solid"></div>

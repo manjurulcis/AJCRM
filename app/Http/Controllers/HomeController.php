@@ -144,7 +144,7 @@ class HomeController extends Controller {
         $store->description = $data->tdescription;
         $store->logo = "";
 
-        if ($data->hasFile('clogo') && $data->file('clogo')->isValid()) {
+        if ($data->hasFile('tlogo') && $data->file('tlogo')->isValid()) {
             $destinationPath = 'upload/team'; // upload path
             $extension = $data->file('tlogo')->getClientOriginalExtension();
             $fileName = rand(1, 999) . '.' . $extension;
@@ -211,19 +211,45 @@ class HomeController extends Controller {
     }
 
     public function save_project(Request $data) {
+        $rules = [
+            'client' => 'required|max:255',
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'enddate' => 'required',
+            'logo' => 'required',
+        ];
+        $messages = [
+            'client.required' => 'Client Name is required',
+            'name.required' => 'Project Name is required',
+            'description.required' => 'Description is required',
+            'status.required' => 'Status is required',
+            'enddate.required' => 'Deadline is required',
+            'logo.required' => 'Project logo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
         $store = new project();
         $store->client_id = $data->client;
         $store->project_title = $data->name;
         $store->project_desc = $data->description;
         $store->project_status = $data->status;
         $store->end_time = $data->enddate;
+        $store->logo = "";
 
-        $destinationPath = 'upload/project'; // upload path
-        $extension = $data->file('logo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('logo')->move($destinationPath, $fileName);
+        if ($data->hasFile('logo') && $data->file('logo')->isValid()) {
+            $destinationPath = 'upload/project'; // upload path
+            $extension = $data->file('logo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('logo')->move($destinationPath, $fileName);
 
-        $store->logo = $destinationPath . '/' . $fileName;
+            $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded File not valid ');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Added Successfully ');
         return redirect::back();
