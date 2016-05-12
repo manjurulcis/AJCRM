@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Validator;
 use App\User;
 use App\addCompany;
 use App\Team;
@@ -12,6 +13,7 @@ use App\project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller {
 
@@ -20,31 +22,54 @@ class HomeController extends Controller {
     }
 
     public function index() {
-        Session::put('msg', "Hello world");
         return view("dashboard");
     }
 
 //    ============= Company Section ===========
 
     public function add_company() {
-        
+
         return view("add_company");
     }
 
     public function save_company(Request $data) {
+        $rules=[
+                    'cname' => 'required|max:255',
+                    'cemail' => 'required',
+                    'cdescription' => 'required',
+                    'caddress' => 'required',
+                    'cno' => 'required',
+                    'clogo' => 'required',
+        ];
+        $messages=[
+            'cname.required'=>'Name is required',
+            'cemail.required'=>'Email is required',
+            'cdescription.required'=>'Description is required',
+            'caddress.required'=>'Address is required',
+            'cno.required'=>'Contact no is required',
+            'clogo.required'=>'Logo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules,$messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
         $store = new addCompany();
         $store->name = $data->cname;
         $store->email = $data->cemail;
         $store->description = $data->cdescription;
         $store->address = $data->caddress;
         $store->contact_no = $data->cno;
+        $store->logo = "";
 
-        $destinationPath = 'upload/company'; // upload path
-        $extension = $data->file('clogo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('clogo')->move($destinationPath, $fileName);
+        if ($data->hasFile('clogo') && $data->file('clogo')->isValid()) {
+            $destinationPath = 'upload/company'; // upload path
+            $extension = $data->file('clogo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('clogo')->move($destinationPath, $fileName);
 
-        $store->logo = $destinationPath . '/' . $fileName;
+            $store->logo = $destinationPath . '/' . $fileName;
+        }
+
         $store->save();
         Session::flash('msg', 'Added Successfully');
         return redirect::back();
@@ -301,4 +326,5 @@ class HomeController extends Controller {
         $data = User::all();
         return view("users_list")->with('users_list', $data);
     }
+
 }
