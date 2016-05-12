@@ -33,7 +33,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="company-name" name="cname" placeholder="name of your Company" class="form-control col-md-7 col-xs-12">
-                            @if ($errors->has('cname'))<p style="color:red;">{!!$errors->first('cname')!!}</p>@endif
+                            @if ($errors->has('cname'))<p style="color:red;">* {!!$errors->first('cname')!!}</p>@endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -41,21 +41,21 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="address" name="caddress" placeholder="Company address" class="form-control col-md-7 col-xs-12">
-                            @if ($errors->has('caddress'))<p style="color:red;">{!!$errors->first('caddress')!!}</p>@endif
+                            @if ($errors->has('caddress'))<p style="color:red;">* {!!$errors->first('caddress')!!}</p>@endif
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input id="email" class="form-control col-md-7 col-xs-12" type="email" placeholder="Company's email" name="cemail">
-                            @if ($errors->has('name'))<p style="color:red;">{!!$errors->first('name')!!}</p>@endif
+                            @if ($errors->has('cemail'))<p style="color:red;">* {!!$errors->first('cemail')!!}</p>@endif
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="cno" class="control-label col-md-3 col-sm-3 col-xs-12">Contact no.</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input class="form-control col-md-7 col-xs-12" type="text" name="cno" id="cno" placeholder="Contact number">
-                            @if ($errors->has('cno'))<p style="color:red;">{!!$errors->first('cno')!!}</p>@endif
+                            @if ($errors->has('cno'))<p style="color:red;">* {!!$errors->first('cno')!!}</p>@endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,13 +63,13 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <textarea class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Company ..." name="cdescription" id="description"></textarea>
                         </div>
-                        @if ($errors->has('cdescription'))<p style="color:red;">{!!$errors->first('cdescription')!!}</p>@endif
+                        @if ($errors->has('cdescription'))<p style="color:red;">* {!!$errors->first('cdescription')!!}</p>@endif
                     </div>
                     <div class="form-group">
                         <label for="logo" class="control-label col-md-3 col-sm-3 col-xs-12" for="logo">Logo</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input id="logo" type="file" name="clogo" >
-                            @if ($errors->has('clogo'))<p style="color:red;">{!!$errors->first('clogo')!!}</p>@endif
+                            @if ($errors->has('clogo'))<p style="color:red;">* {!!$errors->first('clogo')!!}</p>@endif
                         </div>
                         
                     </div>

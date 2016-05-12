@@ -35,23 +35,23 @@ class HomeController extends Controller {
     public function save_company(Request $data) {
         $rules=[
                     'cname' => 'required|max:255',
-                    'cemail' => 'required',
-                    'cdescription' => 'required',
                     'caddress' => 'required',
+                    'cemail' => 'required',
                     'cno' => 'required',
+                    'cdescription' => 'required',
                     'clogo' => 'required',
         ];
         $messages=[
             'cname.required'=>'Name is required',
-            'cemail.required'=>'Email is required',
-            'cdescription.required'=>'Description is required',
             'caddress.required'=>'Address is required',
+            'cemail.required'=>'Email is required',
             'cno.required'=>'Contact no is required',
+            'cdescription.required'=>'Description is required',
             'clogo.required'=>'Logo is required',
         ];
         $validator = Validator::make($data->all(), $rules,$messages);
         if ($validator->fails()) {
-            return redirect::back()->withErrors($validator)->withInput();
+            return redirect::back()->withInput()->withErrors($validator);
         }
         $store = new addCompany();
         $store->name = $data->cname;
