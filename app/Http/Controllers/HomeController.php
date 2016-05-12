@@ -33,23 +33,23 @@ class HomeController extends Controller {
     }
 
     public function save_company(Request $data) {
-        $rules=[
-                    'cname' => 'required|max:255',
-                    'caddress' => 'required',
-                    'cemail' => 'required',
-                    'cno' => 'required',
-                    'cdescription' => 'required',
-                    'clogo' => 'required',
+        $rules = [
+            'cname' => 'required|max:255',
+            'caddress' => 'required',
+            'cemail' => 'required',
+            'cno' => 'required',
+            'cdescription' => 'required',
+            'clogo' => 'required',
         ];
-        $messages=[
-            'cname.required'=>'Name is required',
-            'caddress.required'=>'Address is required',
-            'cemail.required'=>'Email is required',
-            'cno.required'=>'Contact no is required',
-            'cdescription.required'=>'Description is required',
-            'clogo.required'=>'Logo is required',
+        $messages = [
+            'cname.required' => 'Name is required',
+            'caddress.required' => 'Address is required',
+            'cemail.required' => 'Email is required',
+            'cno.required' => 'Contact no is required',
+            'cdescription.required' => 'Description is required',
+            'clogo.required' => 'Logo is required',
         ];
-        $validator = Validator::make($data->all(), $rules,$messages);
+        $validator = Validator::make($data->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect::back()->withInput()->withErrors($validator);
         }
@@ -68,6 +68,9 @@ class HomeController extends Controller {
             $data->file('clogo')->move($destinationPath, $fileName);
 
             $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded file not valid');
+            return redirect::back();
         }
 
         $store->save();
@@ -118,17 +121,40 @@ class HomeController extends Controller {
     }
 
     public function save_team(Request $data) {
+        $rules = [
+            'tname' => 'required|max:255',
+            'tcompany' => 'required',
+            'tlogo' => 'required',
+            'tdescription' => 'required',
+        ];
+        $messages = [
+            'tname.required' => 'Team Name is required',
+            'tcompany.required' => 'Company name is required',
+            'tlogo.required' => 'Logo is required',
+            'tdescription.required' => 'Description is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
+
         $store = new Team();
         $store->name = $data->tname;
         $store->company_id = $data->tcompany;
         $store->description = $data->tdescription;
+        $store->logo = "";
 
-        $destinationPath = 'upload/team'; // upload path
-        $extension = $data->file('tlogo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('tlogo')->move($destinationPath, $fileName);
+        if ($data->hasFile('clogo') && $data->file('clogo')->isValid()) {
+            $destinationPath = 'upload/team'; // upload path
+            $extension = $data->file('tlogo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('tlogo')->move($destinationPath, $fileName);
 
-        $store->logo = $destinationPath . '/' . $fileName;
+            $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('msg', 'Uploaded file not valid');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Added Successfully ');
         return redirect::back();
