@@ -13,6 +13,15 @@
                     echo "<h4 style='color:red'>* " . Session::get('msg') . "</h4>";
                 }
                 ?>
+                @if (count($errors) > 0)
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>

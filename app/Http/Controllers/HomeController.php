@@ -34,12 +34,12 @@ class HomeController extends Controller {
 
     public function save_company(Request $data) {
         $rules = [
-            'cname' => 'required|max:255',
-            'caddress' => 'required',
-            'cemail' => 'required',
-            'cno' => 'required',
-            'cdescription' => 'required',
-            'clogo' => 'required',
+            'cname' => 'required|max:255|alpha',
+            'caddress' => 'required|string|max:400',
+            'cemail' => 'required|email',
+            'cno' => 'required|digits:14',
+            'cdescription' => 'required|string',
+            'clogo' => 'required|image|mimes:jpeg,bmp,png',
         ];
         $messages = [
             'cname.required' => 'Name is required',
@@ -89,6 +89,26 @@ class HomeController extends Controller {
     }
 
     public function update_company(Request $data) {
+        $rules = [
+            'cname' => 'required',
+            'caddress' => 'required',
+            'cemail' => 'required',
+            'cno' => 'required',
+            'cdescription' => 'required',
+            'clogo' => 'required',
+        ];
+        $messages = [
+            'cname.required' => 'Name is required',
+            'caddress.required' => 'Address is required',
+            'cemail.required' => 'Email is required',
+            'cno.required' => 'Contact no is required',
+            'cdescription.required' => 'Description is required',
+            'clogo.required' => 'Logo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withInput()->withErrors($validator);
+        }
         $store = addCompany::find($data->cid);
         $store->name = $data->cname;
         $store->email = $data->cemail;
@@ -96,12 +116,19 @@ class HomeController extends Controller {
         $store->address = $data->caddress;
         $store->contact_no = $data->cno;
 
-        $destinationPath = 'upload/company'; // upload path
-        $extension = $data->file('clogo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('clogo')->move($destinationPath, $fileName);
+        $store->logo = "";
 
-        $store->logo = $destinationPath . '/' . $fileName;
+        if ($data->hasFile('clogo') && $data->file('clogo')->isValid()) {
+            $destinationPath = 'upload/company'; // upload path
+            $extension = $data->file('clogo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('clogo')->move($destinationPath, $fileName);
+
+            $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded file not valid');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
@@ -122,7 +149,7 @@ class HomeController extends Controller {
 
     public function save_team(Request $data) {
         $rules = [
-            'tname' => 'required|max:255',
+            'tname' => 'required',
             'tcompany' => 'required',
             'tlogo' => 'required',
             'tdescription' => 'required',
@@ -180,18 +207,41 @@ class HomeController extends Controller {
     }
 
     public function update_team(Request $data) {
+        $rules = [
+            'tname' => 'required',
+            'tcompany' => 'required',
+            'tlogo' => 'required',
+            'tdescription' => 'required',
+        ];
+        $messages = [
+            'tname.required' => 'Team Name is required',
+            'tcompany.required' => 'Company name is required',
+            'tlogo.required' => 'Logo is required',
+            'tdescription.required' => 'Description is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
+
         $store = Team::find($data->id);
-        ;
+
         $store->name = $data->tname;
         $store->company_id = $data->tcompany;
         $store->description = $data->tdescription;
+        $store->logo = "";
 
-        $destinationPath = 'upload/team'; // upload path
-        $extension = $data->file('tlogo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('tlogo')->move($destinationPath, $fileName);
+        if ($data->hasFile('tlogo') && $data->file('tlogo')->isValid()) {
+            $destinationPath = 'upload/team'; // upload path
+            $extension = $data->file('tlogo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('tlogo')->move($destinationPath, $fileName);
 
-        $store->logo = $destinationPath . '/' . $fileName;
+            $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('msg', 'Uploaded file not valid');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
@@ -212,7 +262,7 @@ class HomeController extends Controller {
 
     public function save_project(Request $data) {
         $rules = [
-            'client' => 'required|max:255',
+            'client' => 'required',
             'name' => 'required',
             'description' => 'required',
             'status' => 'required',
@@ -266,7 +316,6 @@ class HomeController extends Controller {
     }
 
     public function view_project(Request $request) {
-
         $project_info = DB::table('projects')
                 ->where("projects.id", '=', $request->id)
                 ->join('clients', 'clients.id', '=', 'projects.client_id')
@@ -276,19 +325,44 @@ class HomeController extends Controller {
     }
 
     public function update_project(Request $data) {
+        $rules = [
+            'client' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'enddate' => 'required',
+            'logo' => 'required',
+        ];
+        $messages = [
+            'client.required' => 'Client Name is required',
+            'name.required' => 'Project Name is required',
+            'description.required' => 'Description is required',
+            'status.required' => 'Status is required',
+            'enddate.required' => 'Deadline is required',
+            'logo.required' => 'Project logo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
         $store = project::find($data->id);
         $store->client_id = $data->client;
         $store->project_title = $data->name;
         $store->project_desc = $data->description;
         $store->project_status = $data->status;
         $store->end_time = $data->enddate;
+        $store->logo = "";
 
-        $destinationPath = 'upload/project'; // upload path
-        $extension = $data->file('logo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('logo')->move($destinationPath, $fileName);
-
-        $store->logo = $destinationPath . '/' . $fileName;
+        if ($data->hasFile('logo') && $data->file('logo')->isValid()) {
+            $destinationPath = 'upload/project'; // upload path
+            $extension = $data->file('logo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('logo')->move($destinationPath, $fileName);
+            $store->logo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded File not valid ');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', ' Updated Successfully ');
         return redirect::back();
@@ -308,9 +382,9 @@ class HomeController extends Controller {
 
     public function save_client(Request $data) {
         $rules = [
-            'name' => 'required|max:255',
+            'name' => 'required',
             'address' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'bdate' => 'required',
             'cno' => 'required',
             'photo' => 'required',
@@ -362,19 +436,44 @@ class HomeController extends Controller {
     }
 
     public function update_client(Request $data) {
+        $rules = [
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'bdate' => 'required',
+            'cno' => 'required',
+            'photo' => 'required',
+        ];
+        $messages = [
+            'name.required' => 'Client Name is required',
+            'address.required' => 'Address is required',
+            'email.required' => 'Email is required',
+            'bdate.required' => 'Birthdate is required',
+            'cno.required' => 'Contact No is required',
+            'photo.required' => 'Photo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
         $store = client::find($data->id);
         $store->client_name = $data->name;
         $store->client_address = $data->address;
         $store->client_email = $data->email;
         $store->birthdate = $data->bdate;
         $store->contact_no = $data->cno;
+        $store->client_photo = "";
 
-        $destinationPath = 'upload/client'; // upload path
-        $extension = $data->file('photo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('photo')->move($destinationPath, $fileName);
-
-        $store->client_photo = $destinationPath . '/' . $fileName;
+        if ($data->hasFile('photo') && $data->file('photo')->isValid()) {
+            $destinationPath = 'upload/client'; // upload path
+            $extension = $data->file('photo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('photo')->move($destinationPath, $fileName);
+            $store->client_photo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded file not valid ');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Updated Successfully ');
         return redirect::back();
