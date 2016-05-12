@@ -307,19 +307,45 @@ class HomeController extends Controller {
     }
 
     public function save_client(Request $data) {
+        $rules = [
+            'name' => 'required|max:255',
+            'address' => 'required',
+            'email' => 'required',
+            'bdate' => 'required',
+            'cno' => 'required',
+            'photo' => 'required',
+        ];
+        $messages = [
+            'name.required' => 'Client Name is required',
+            'address.required' => 'Address is required',
+            'email.required' => 'Email is required',
+            'bdate.required' => 'Birthdate is required',
+            'cno.required' => 'Contact No is required',
+            'photo.required' => 'Photo is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
         $store = new client();
         $store->client_name = $data->name;
         $store->client_address = $data->address;
         $store->client_email = $data->email;
         $store->birthdate = $data->bdate;
         $store->contact_no = $data->cno;
+        $store->client_photo = "";
 
-        $destinationPath = 'upload/client'; // upload path
-        $extension = $data->file('photo')->getClientOriginalExtension();
-        $fileName = rand(1, 999) . '.' . $extension;
-        $data->file('photo')->move($destinationPath, $fileName);
+        if ($data->hasFile('photo') && $data->file('photo')->isValid()) {
+            $destinationPath = 'upload/client'; // upload path
+            $extension = $data->file('photo')->getClientOriginalExtension();
+            $fileName = rand(1, 999) . '.' . $extension;
+            $data->file('photo')->move($destinationPath, $fileName);
 
-        $store->client_photo = $destinationPath . '/' . $fileName;
+            $store->client_photo = $destinationPath . '/' . $fileName;
+        } else {
+            Session::flash('error', 'Uploaded file not valid ');
+            return redirect::back();
+        }
         $store->save();
         Session::flash('msg', 'Added Successfully ');
         return redirect::back();
