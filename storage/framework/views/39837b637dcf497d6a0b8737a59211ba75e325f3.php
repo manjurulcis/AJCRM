@@ -4,9 +4,27 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2><small>Daily</small> active user 's</h2>
+                    <div class="pull-right">
+                        <button class="btn btn-default listbtn" title="list view"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+                        <button class="btn btn-default tilesbtn" title="tiles view"><i class="fa fa-th" aria-hidden="true"></i></button>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                <?php
+                if (Session::has('msg')) {
+                    echo "<h4 style='color:red'>* " . Session::get('msg') . "</h4>";
+                }
+                ?>
+                <?php if(count($errors) > 0): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach($errors->all() as $error): ?>
+                        <li><?php echo e($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+                <div class="x_content list-view">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
                             <tr class="headings">
@@ -35,7 +53,7 @@
                                 <td class=" last">
                                     <a href="<?php echo e(URL::to("profile/view/$user->id")); ?>" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a class="btn btn-warning" data-toggle="modal" data-target="#editModal" title="Edit"><i class="fa fa-edit m-right-xs"></i></a>                                    
-                                    <!-- Modal -->
+                                    <!--          Modal -->
                                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -58,7 +76,7 @@
                                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                                                             </label>
                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                <input type="text" id="last-name" name="email" required="required" value="Email Here(From DB)" class="form-control col-md-7 col-xs-12">
+                                                                <input type="text" id="email" name="email" required="required" value="Email Here(From DB)" class="form-control col-md-7 col-xs-12">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -95,6 +113,66 @@
 
                     </table>
                 </div>
+                <div class="x_content tiles-view">
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                            <ul class="pagination pagination-split">
+                                <li><a href="#">A</a></li>
+                                <li><a href="#">B</a></li>
+                                <li><a href="#">C</a></li>
+                                <li><a href="#">D</a></li>
+                                <li><a href="#">E</a></li>
+                                <li><a href="#">F</a></li>
+                                <li><a href="#">G</a></li>
+                                <li><a href="#">H</a></li>
+                                <li><a href="#">I</a></li>
+                                <li><a href="#">J</a></li>
+                                <li><a href="#">K</a></li>
+                                <li>...</li>
+                                <li><a href="#">S</a></li>
+                                <li><a href="#">T</a></li>
+                                <li><a href="#">U</a></li>
+                                <li><a href="#">V</a></li>
+                                <li><a href="#">W</a></li>
+                                <li><a href="#">X</a></li>
+                                <li><a href="#">Y</a></li>
+                                <li><a href="#">Z</a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        
+                        <?php foreach($users_list as $user): ?>
+                        <div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
+                            <div class="well profile_view">
+                                <div class="col-sm-12">
+                                    <h4 class="brief"><i><?php echo e($user->id); ?></i></h4>
+                                    <div class="left col-xs-7">
+                                        <h2><?php echo e($user->username); ?></h2>
+                                        <p><strong>email: </strong> <?php echo e($user->email); ?></p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fa fa-phone"></i> Address: </li>
+                                            <li><i class="fa fa-phone"></i> Address: </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="right col-xs-5 text-center">
+                                        <img src="images/img.jpg" alt="" class="img-circle img-responsive">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 bottom text-center">
+                                    <div class="col-xs-12 col-sm-12 emphasis">
+                                        <button type="button" class="btn btn-success btn-xs pull-left"> <i class="fa fa-user"></i><i class="fa fa-comments-o"></i>Comments</button>
+                                        <button type="button" class="btn btn-primary btn-xs pull-right"><i class="fa fa-user"></i> View Profile </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -105,6 +183,14 @@
 
 <script>
     $(document).ready(function () {
+        $('.listbtn').click(function () {
+            $('.list-view').show();
+            $('.tiles-view').hide();
+        });
+        $('.tilesbtn').click(function () {
+            $('.list-view').hide();
+            $('.tiles-view').show();
+        });
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'

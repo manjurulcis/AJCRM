@@ -6365,3 +6365,6 @@ ul.notifications {
 .copyright-info {
     padding: 8px 0;
 }
+.tiles-view{
+	display:none;
+}
