@@ -44,7 +44,12 @@
                                     <input type="checkbox" class="tableflat">
                                 </td>
                                 <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"> {{$data->project_title}}</td>
+                                @if(isset($data->client->client_name))
                                 <td class=" ">{{$data->client->client_name}}</td>
+                                @else
+                                <td class="" style="color:red">Not Listed</td>
+                                @endif
+                                
                                 @if($data->project_status)
                                 <td class=" ">Active</td>
                                 @else

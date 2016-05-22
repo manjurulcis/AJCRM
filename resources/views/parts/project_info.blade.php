@@ -31,7 +31,12 @@
                                 <br/>
 
                                 <dt>Client:</dt>
+                                @if(isset($project_info->client->client_name))
                                 <dd>{{$project_info->client->client_name}}</dd><br/>
+                                @else
+                                <dd style="color:red">Not Listed</dd><br/>
+                                @endif
+                                
                                 <dt>Deadline:</dt>
                                 <dd style="color:red">{{date("d M ,Y",strtotime($project_info->end_time))}}</dd><br/>
 

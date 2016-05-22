@@ -25,7 +25,12 @@
                                 <dt>Name:</dt>
                                 <dd>{{$team_info->name}}</dd><br/>
                                 <dt>Company Name:</dt>
+                                @if(isset($team_info->company->name))
                                 <dd>{{$team_info->company->name}}</dd><br/>
+                                @else
+                                <dd style="color:red">Not Listed</dd><br/>
+                                @endif
+                                
                                 <dt>Description:</dt>
                                 <dd>{{$team_info->description}}</dd><br/>
                                 <dt>Created Date:</dt>

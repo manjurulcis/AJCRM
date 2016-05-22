@@ -14,14 +14,14 @@
                 }
                 ?>
                 @if (count($errors) > 0)
-			<div class="alert alert-danger">
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="x_content">
                     <table id="example" class="table table-striped responsive-utilities jambo_table">
                         <thead>
@@ -39,12 +39,19 @@
 
                         <tbody>
                             @foreach($team_list as $data)
+
                             <tr class="odd pointer">
                                 <td class="a-center ">
                                     <input type="checkbox" class="tableflat">
                                 </td>
                                 <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"/> {{$data->name}}</td>
+                                
+                                @if(isset($data->company->name))
                                 <td class=" ">{{$data->company->name}}</td>
+                                @else
+                                <td class=" " style="color:red">Not Listed</td>
+                                @endif
+                                
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
                                     <a href="{{url('team/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
