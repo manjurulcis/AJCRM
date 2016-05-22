@@ -44,7 +44,7 @@
                                     <input type="checkbox" class="tableflat">
                                 </td>
                                 <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"/> {{$data->name}}</td>
-                                <td class=" ">{{$data->company_name}}</td>
+                                <td class=" ">{{$data->company->name}}</td>
                                 <td class="a-right a-right ">{{$data->description}}</td>
                                 <td class=" last">
                                     <a href="{{url('team/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>

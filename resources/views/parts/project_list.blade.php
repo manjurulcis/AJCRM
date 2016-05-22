@@ -44,13 +44,13 @@
                                     <input type="checkbox" class="tableflat">
                                 </td>
                                 <td class=" "><img src="{{URL::asset($data->logo)}}" height="25px" width="25px"> {{$data->project_title}}</td>
-                                <td class=" ">{{$data->client_name}}</td>
+                                <td class=" ">{{$data->client->client_name}}</td>
                                 @if($data->project_status)
                                 <td class=" ">Active</td>
                                 @else
                                 <td class=" ">Inactive</td>
                                 @endif
-                                <td class="a-right a-right ">{{$data->end_time}}</td>
+                                <td class="a-right a-right ">{{date('d-M-Y',strtotime($data->end_time))}}</td>
                                 <td class=" last">
                                     <a href="{{URL::to('project/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#myModal" title="Edit" value="{{$data->id}}"><i class="fa fa-edit m-right-xs"></i></button>

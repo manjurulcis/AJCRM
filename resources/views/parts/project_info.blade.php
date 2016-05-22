@@ -15,7 +15,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">Client Information</h4>
+                            <h4 class="media-heading">Project Information</h4>
                             <br/><br/>
                             <dl class="dl-horizontal">
 
@@ -31,7 +31,7 @@
                                 <br/>
 
                                 <dt>Client:</dt>
-                                <dd>{{$project_info->client_name}}</dd><br/>
+                                <dd>{{$project_info->client->client_name}}</dd><br/>
                                 <dt>Deadline:</dt>
                                 <dd style="color:red">{{date("d M ,Y",strtotime($project_info->end_time))}}</dd><br/>
 

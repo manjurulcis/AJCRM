@@ -12,6 +12,9 @@ class addCompany extends Model
         'name', 'email', 'logo','description','address','contact_no'
     ];
     public $timestamps = true;
-
+    
+    public function team(){
+        return $this->hasMany('App\Team','company_id');
+    }
 
 }

@@ -12,4 +12,10 @@ class Team extends Model
         'project_id','company_id','name','logo','description'
     ];
     public $timestamps = true;
+    
+    public function company()
+    {
+        return $this->belongsTo('App\addCompany','company_id');
+    }
+    
 }

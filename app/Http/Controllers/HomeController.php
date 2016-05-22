@@ -34,12 +34,12 @@ class HomeController extends Controller {
 
     public function save_company(Request $data) {
         $rules = [
-            'cname' => 'required|max:255|alpha',
-            'caddress' => 'required|string|max:400',
+            'cname' => 'required',
+            'caddress' => 'required',
             'cemail' => 'required|email',
-            'cno' => 'required|digits:14',
-            'cdescription' => 'required|string',
-            'clogo' => 'required|image|mimes:jpeg,bmp,png',
+            'cno' => 'required',
+            'cdescription' => 'required',
+            'clogo' => 'required',
         ];
         $messages = [
             'cname.required' => 'Name is required',
@@ -189,20 +189,28 @@ class HomeController extends Controller {
 
     public function team_list() {
         $companies = addCompany::select('id', 'name')->get();
-        $data = DB::table('teams')
-                ->join('companies', 'teams.company_id', '=', 'companies.id')
-                ->select('teams.*', 'companies.name as company_name')
-                ->get();
+
+//        $data = DB::table('teams')
+//                ->join('companies', 'teams.company_id', '=', 'companies.id')
+//                ->select('teams.*', 'companies.name as company_name')
+//                ->get();
+
+        $data = Team::with('company')->get();
+
         return view("team_list")->with('team_list', $data)
                         ->with('companies', $companies);
     }
 
     public function view_team(Request $request) {
-        $team_info = DB::table('teams')
-                ->where("teams.id", '=', $request->id)
-                ->join('companies', 'teams.company_id', '=', 'companies.id')
-                ->select('teams.*', 'companies.name as company_name')
-                ->first();
+//        dd($request->id);
+//        $team_info = DB::table('teams')
+//                ->where("teams.id", '=', $request->id)
+//                ->join('companies', 'teams.company_id', '=', 'companies.id')
+//                ->select('teams.*', 'companies.name as company_name')
+//                ->first();
+
+        $team_info = Team::with('company')->where('id','=',$request->id)->first();
+        
         return view("team_info")->with('team_info', $team_info);
     }
 
@@ -307,20 +315,26 @@ class HomeController extends Controller {
 
     public function project_list() {
         $client_info = client::select('id', 'client_name')->get();
-        $project_list = DB::table('projects')
-                ->join('clients', 'projects.client_id', '=', 'clients.id')
-                ->select('projects.*', 'clients.client_name')
-                ->get();
+//        $project_list = DB::table('projects')
+//                ->join('clients', 'projects.client_id', '=', 'clients.id')
+//                ->select('projects.*', 'clients.client_name')
+//                ->get();
+        
+        $project_list= project::with('client')->get();
+
         return view("project_list")->with('project_info', $project_list)
                         ->with('client_info', $client_info);
     }
 
     public function view_project(Request $request) {
-        $project_info = DB::table('projects')
-                ->where("projects.id", '=', $request->id)
-                ->join('clients', 'clients.id', '=', 'projects.client_id')
-                ->select('projects.*', 'clients.client_name')
-                ->first();
+//        $project_info = DB::table('projects')
+//                ->where("projects.id", '=', $request->id)
+//                ->join('clients', 'clients.id', '=', 'projects.client_id')
+//                ->select('projects.*', 'clients.client_name')
+//                ->first();
+        
+        $project_info=  project::with('client')->where('id','=',$request->id)->first();
+        
         return view("project_info")->with('project_info', $project_info);
     }
 

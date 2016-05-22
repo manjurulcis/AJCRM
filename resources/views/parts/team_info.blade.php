@@ -1,3 +1,6 @@
+<?php
+//dd($team_info);
+?>
 <div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -22,7 +25,7 @@
                                 <dt>Name:</dt>
                                 <dd>{{$team_info->name}}</dd><br/>
                                 <dt>Company Name:</dt>
-                                <dd>{{$team_info->company_name}}</dd><br/>
+                                <dd>{{$team_info->company->name}}</dd><br/>
                                 <dt>Description:</dt>
                                 <dd>{{$team_info->description}}</dd><br/>
                                 <dt>Created Date:</dt>
