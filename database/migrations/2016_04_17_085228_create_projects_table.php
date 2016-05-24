@@ -14,7 +14,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id')->unsigned();
+            $table->integer('client_id')-> unsigned();
             $table->string('project_title',100);
             $table->string('logo',100);
             $table->string('project_desc',400);
@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
             $table->time('end_time');
             $table->timestamps();
             
-//            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

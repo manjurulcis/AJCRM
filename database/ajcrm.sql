@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2016 at 03:31 PM
+-- Generation Time: May 24, 2016 at 12:05 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.5
 
@@ -101,7 +101,7 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `projects` (
   `id` int(10) UNSIGNED NOT NULL,
-  `client_id` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` int(10) UNSIGNED NOT NULL,
   `project_title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `logo` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `project_desc` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
@@ -122,7 +122,6 @@ CREATE TABLE `teams` (
   `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `logo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
-  `project_id` int(10) UNSIGNED NOT NULL,
   `company_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -158,6 +157,13 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin@admin.com', '$2y$10$JNGEeG4YVPqdvYDU9BIAbuMQs6AOtx8vMcmwj7QMEfK7421D25K3a', NULL, '2016-05-24 04:02:12', '2016-05-24 04:02:12');
+
 -- --------------------------------------------------------
 
 --
@@ -165,12 +171,12 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `user_details` (
-  `id` int(3) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `first_name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `contact_no` int(11) NOT NULL,
+  `contact_no` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
   `company_id` int(11) NOT NULL,
   `user_type` tinyint(4) NOT NULL,
   `photo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -186,7 +192,8 @@ CREATE TABLE `user_details` (
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clients_client_email_unique` (`client_email`);
 
 --
 -- Indexes for table `companies`
@@ -206,7 +213,8 @@ ALTER TABLE `password_resets`
 -- Indexes for table `projects`
 --
 ALTER TABLE `projects`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_id` (`client_id`);
 
 --
 -- Indexes for table `teams`
@@ -244,7 +252,7 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `companies`
 --
@@ -254,7 +262,7 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `teams`
 --
@@ -269,15 +277,21 @@ ALTER TABLE `team_members`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `projects`
+--
+ALTER TABLE `projects`
+  ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `teams`
