@@ -196,6 +196,13 @@ class HomeController extends Controller {
 //                ->get();
 
         $data = Team::with('company')->get();
+        
+        $data = Team::with(['company' => function($query){
+            $query->select('id','name');
+        }])->get();
+        
+        dd($data);
+
 
         return view("team_list")->with('team_list', $data)
                         ->with('companies', $companies);

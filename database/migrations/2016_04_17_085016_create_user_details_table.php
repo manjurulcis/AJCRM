@@ -13,11 +13,12 @@ class CreateUserDetailsTable extends Migration
     public function up()
     {
         Schema::create('user_details', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unique();
             $table->string('first_name',80);
             $table->string('last_name',80);
             $table->string('address',200);
-            $table->integer('contact_no',14);
+            $table->string('contact_no',14);
             $table->integer('company_id');
             $table->tinyInteger('user_type');
             $table->string('photo');

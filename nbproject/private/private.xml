@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/AJCRM/resources/views/parts/team_list.blade.php</file>
+            <file>file:/C:/xampp/htdocs/AJCRM/app/addCompany.php</file>
+            <file>file:/C:/xampp/htdocs/AJCRM/app/Http/Controllers/HomeController.php</file>
+            <file>file:/C:/xampp/htdocs/AJCRM/database/migrations/2016_04_17_085318_create_teams_table.php</file>
+            <file>file:/C:/xampp/htdocs/AJCRM/app/Team.php</file>
         </group>
     </open-files>
 </project-private>

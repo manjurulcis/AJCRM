@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2016 at 11:44 AM
+-- Generation Time: May 22, 2016 at 03:31 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.5
 
@@ -38,13 +38,6 @@ CREATE TABLE `clients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `clients`
---
-
-INSERT INTO `clients` (`id`, `client_name`, `client_address`, `client_email`, `contact_no`, `birthdate`, `client_photo`, `created_at`, `updated_at`) VALUES
-(1, 'Md. Sohel', 'Ajtech', 'ajtech@ajtech.com', '123456789', '05/14/2016', 'upload/client/882.png', '2016-05-11 07:55:19', '2016-05-11 07:55:19');
-
 -- --------------------------------------------------------
 
 --
@@ -62,13 +55,6 @@ CREATE TABLE `companies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `companies`
---
-
-INSERT INTO `companies` (`id`, `name`, `email`, `logo`, `description`, `address`, `contact_no`, `created_at`, `updated_at`) VALUES
-(2, 'Ajtech Software Solution Ltd', 'ajtech@ajtechbd.com', 'upload/company/56.png', 'Ajtech Bangladesh', 'Syamoli,Dhaka-1207', '123456789', '2016-05-12 04:31:10', '2016-05-12 04:31:10');
 
 -- --------------------------------------------------------
 
@@ -117,10 +103,10 @@ CREATE TABLE `projects` (
   `id` int(10) UNSIGNED NOT NULL,
   `client_id` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   `project_title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `logo` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `project_desc` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
   `project_status` tinyint(4) NOT NULL,
-  `end_time` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `logo` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
+  `end_time` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -133,11 +119,11 @@ CREATE TABLE `projects` (
 
 CREATE TABLE `teams` (
   `id` int(10) UNSIGNED NOT NULL,
-  `project_id` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `company_id` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `logo` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
+  `project_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -172,13 +158,6 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@admin.com', '$2y$10$cnfK4PbG7enOCdTNW2.leuh3SBlM0l5p4iKp6SnMRAhdbrATtufPG', 'zqN8GBqeXIfQbdBLHmfCzsjbtqBfQwhGdholZiP8rfW8CA8yir86aJYKlSk3', '2016-04-24 23:36:45', '2016-05-14 08:15:54');
-
 -- --------------------------------------------------------
 
 --
@@ -186,7 +165,7 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `remember_token`, `c
 --
 
 CREATE TABLE `user_details` (
-  `id` int(11) NOT NULL,
+  `id` int(3) NOT NULL,
   `user_id` int(11) NOT NULL,
   `first_name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `last_name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
@@ -233,7 +212,8 @@ ALTER TABLE `projects`
 -- Indexes for table `teams`
 --
 ALTER TABLE `teams`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teams_company_id_foreign` (`company_id`);
 
 --
 -- Indexes for table `team_members`
@@ -254,8 +234,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_details`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_details_user_id_unique` (`user_id`),
-  ADD UNIQUE KEY `contact_no` (`contact_no`);
+  ADD UNIQUE KEY `user_details_user_id_unique` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -265,12 +244,12 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `projects`
 --
@@ -290,12 +269,22 @@ ALTER TABLE `team_members`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `teams`
+--
+ALTER TABLE `teams`
+  ADD CONSTRAINT `teams_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
