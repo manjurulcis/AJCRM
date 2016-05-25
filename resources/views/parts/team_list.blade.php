@@ -56,7 +56,7 @@
                                 <td class=" last">
                                     <a href="{{url('team/view/'.$data->id)}}" class="btn btn-success" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#myModal" title="Edit" value="{{$data->id}}"><i class="fa fa-edit m-right-xs"></i></button>
-                                    <a href="{{url('team/delete/'.$data->id)}}" class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('team/delete/'.$data->id)}}" class="btn btn-danger" title="Delete" onclick="return deleteTeam()"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -130,6 +130,15 @@
 <!-- /page content -->
 
 <script>
+    function deleteTeam(){
+    var r = confirm("Are you sure to delete this Team?");
+        if (r) {
+        return true;
+        }else{
+            return false;
+        }
+    }
+    
     $(document).ready(function () {
         $('.editbtn').click(function () {
             var id = $(this).val();
