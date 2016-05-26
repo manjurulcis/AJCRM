@@ -19,6 +19,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">Team Information</h4>
+                            <a  type="button" href="{{url('team-member/add',$team_info->id)}}" class="btn btn-default pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Add Team member</a>
                             <br/><br/>
                             <dl class="dl-horizontal">
 

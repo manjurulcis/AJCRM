@@ -196,7 +196,7 @@ class HomeController extends Controller {
 //                ->get();
 
         $data = Team::with('company')->get();
-        
+
 //        $data = Team::with(['company' => function($query){
 //            $query->select('id','name');
 //        }])->get();
@@ -216,8 +216,8 @@ class HomeController extends Controller {
 //                ->select('teams.*', 'companies.name as company_name')
 //                ->first();
 
-        $team_info = Team::with('company')->where('id','=',$request->id)->first();
-        
+        $team_info = Team::with('company')->where('id', '=', $request->id)->first();
+
         return view("team_info")->with('team_info', $team_info);
     }
 
@@ -326,8 +326,8 @@ class HomeController extends Controller {
 //                ->join('clients', 'projects.client_id', '=', 'clients.id')
 //                ->select('projects.*', 'clients.client_name')
 //                ->get();
-        
-        $project_list= project::with('client')->get();
+
+        $project_list = project::with('client')->get();
 
         return view("project_list")->with('project_info', $project_list)
                         ->with('client_info', $client_info);
@@ -339,9 +339,9 @@ class HomeController extends Controller {
 //                ->join('clients', 'clients.id', '=', 'projects.client_id')
 //                ->select('projects.*', 'clients.client_name')
 //                ->first();
-        
-        $project_info=  project::with('client')->where('id','=',$request->id)->first();
-        
+
+        $project_info = project::with('client')->where('id', '=', $request->id)->first();
+
         return view("project_info")->with('project_info', $project_info);
     }
 
@@ -523,6 +523,12 @@ class HomeController extends Controller {
     public function users_list() {
         $data = User::all();
         return view("users_list")->with('users_list', $data);
+    }
+
+//    ============= Team Member Section ===========
+
+    public function addTeamMember(Request $request) {
+        return view("add_team_member")->with('team_id', $request->id);
     }
 
 }

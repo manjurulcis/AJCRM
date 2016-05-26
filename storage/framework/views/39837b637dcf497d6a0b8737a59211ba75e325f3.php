@@ -104,7 +104,7 @@
                                     <?php if((Auth::user()->id) == $user->id): ?>
                                     <button href="" class="btn btn-danger" disabled="disabled" title="Delete"><i class="fa fa-trash m-right-xs"></i></button>
                                     <?php else: ?>
-                                    <a href="<?php echo e(URL::to("profile/delete/$user->id")); ?>" class="btn btn-danger" title="Delete"><i class="fa fa-trash m-right-xs"></i></a>
+                                    <a href="<?php echo e(URL::to("profile/delete/$user->id")); ?>" class="btn btn-danger" title="Delete" onclick="return deleteUser()"><i class="fa fa-trash m-right-xs"></i></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -182,6 +182,15 @@
 </div>
 
 <script>
+    function deleteUser(){
+    var r = confirm("Are you sure to delete this User?");
+        if (r) {
+        return true;
+        }else{
+            return false;
+        }
+    }
+    
     $(document).ready(function () {
         $('.listbtn').click(function () {
             $('.list-view').show();

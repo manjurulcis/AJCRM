@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/profile/view/{id}', 'HomeController@view_profile');
 Route::get('/profile/delete/{id}', 'HomeController@delete_profile');
 
+//Company section
 Route::get('/add-company', 'HomeController@add_company');
 Route::post('/save-company', 'HomeController@save_company');
 Route::get('/company-list', 'HomeController@company_list');
@@ -32,6 +33,7 @@ Route::get('/company/edit/{id}', function($id) {
 Route::post('/update-company', 'HomeController@update_company');
 Route::get('/company/delete/{id}', 'HomeController@delete_company');
 
+//Team section
 Route::get('/add-team', 'HomeController@add_team');
 Route::post('/save-team', 'HomeController@save_team');
 Route::get('/team-list', 'HomeController@team_list');
@@ -45,7 +47,11 @@ Route::get('/team/edit/{id}', function($id) {
 Route::post('/update-team', 'HomeController@update_team');
 Route::get('/team/delete/{id}', 'HomeController@delete_team');
 
+//Team Member section
+Route::get('/team-member/add/{id}', 'HomeController@addTeamMember');
 
+
+//Project section
 Route::get('/add-project', 'HomeController@add_project');
 Route::post('/save-project', 'HomeController@save_project');
 Route::get('/project-list', 'HomeController@project_list');
@@ -59,7 +65,7 @@ Route::get('/project/edit/{id}', function($id){
 Route::post('/update-project', 'HomeController@update_project');
 Route::get('/project/delete/{id}', 'HomeController@delete_project');
 
-
+//Client section
 Route::get('/add-client', 'HomeController@add_client');
 Route::post('/save-client', 'HomeController@save_client');
 Route::get('/client-list', 'HomeController@client_list');
@@ -73,5 +79,5 @@ Route::get('/client/edit/{id}', function($id){
 Route::post('/update-client', 'HomeController@update_client');
 Route::get('/client/delete/{id}', 'HomeController@delete_client');
 
-
+//User section
 Route::get('/users-list', 'HomeController@users_list');
