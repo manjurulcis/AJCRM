@@ -5,7 +5,7 @@
                 <div class="x_title">
                     <h2><small>Daily</small> active user 's</h2>
                     <div class="pull-right">
-                        <button class="btn btn-default listbtn" title="list view"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+                        <button class="btn btn-default listbtn active" title="list view"><i class="fa fa-th-list" aria-hidden="true"></i></button>
                         <button class="btn btn-default tilesbtn" title="tiles view"><i class="fa fa-th" aria-hidden="true"></i></button>
                     </div>
                     <div class="clearfix"></div>
@@ -194,11 +194,15 @@
     $(document).ready(function () {
         $('.listbtn').click(function () {
             $('.list-view').show();
+            $(this).addClass('active');
             $('.tiles-view').hide();
+            $('.tilesbtn').removeClass('active');
         });
         $('.tilesbtn').click(function () {
             $('.list-view').hide();
+            $('.listbtn').removeClass('active');
             $('.tiles-view').show();
+            $(this).addClass('active');
         });
         $('input.tableflat').iCheck({
             checkboxClass: 'icheckbox_flat-green',

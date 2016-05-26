@@ -49,6 +49,7 @@ Route::get('/team/delete/{id}', 'HomeController@delete_team');
 
 //Team Member section
 Route::get('/team-member/add/{id}', 'HomeController@addTeamMember');
+Route::post('/save-team-member','HomeController@saveTeamMember');
 
 
 //Project section

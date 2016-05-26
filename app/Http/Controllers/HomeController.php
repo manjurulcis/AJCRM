@@ -10,6 +10,7 @@ use App\addCompany;
 use App\Team;
 use App\client;
 use App\project;
+use App\team_member;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -492,7 +493,7 @@ class HomeController extends Controller {
             $data->file('photo')->move($destinationPath, $fileName);
             $store->client_photo = $destinationPath . '/' . $fileName;
         } else {
-            Session::flash('error', 'Uploaded file not valid ');
+            Session::flash('error', 'Uploaded file not valid');
             return redirect::back();
         }
         $store->save();
@@ -528,7 +529,21 @@ class HomeController extends Controller {
 //    ============= Team Member Section ===========
 
     public function addTeamMember(Request $request) {
-        return view("add_team_member")->with('team_id', $request->id);
+//        echo $request->id;
+        $data = User::all();
+        return view("add_team_member")->with('team_id', $request->id)
+                        ->with('users_list', $data);
+    }
+
+    public function saveTeamMember(Request $request) {
+        foreach ($request->members as $data) {
+            $team_member = new team_member();
+            $team_member->user_id = $data;
+            $team_member->team_id = $request->team_id;
+            $team_member->save();
+        }
+        Session::flash('msg', 'Saved Successfully ');
+        return redirect::back();
     }
 
 }
