@@ -66,6 +66,9 @@ Route::get('/project/edit/{id}', function($id){
 Route::post('/update-project', 'HomeController@update_project');
 Route::get('/project/delete/{id}', 'HomeController@delete_project');
 
+// Project Task section
+Route::post('/saveTask', 'HomeController@saveTask');
+
 //Client section
 Route::get('/add-client', 'HomeController@add_client');
 Route::post('/save-client', 'HomeController@save_client');

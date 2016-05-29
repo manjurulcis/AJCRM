@@ -16,5 +16,8 @@ class project extends Model
     public function client(){
         return $this->belongsTo('App\client','client_id');
     }
+    public function Task(){
+        return $this->hasMany('App\tasks');
+    }
     
 }

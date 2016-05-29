@@ -10,6 +10,7 @@ use App\addCompany;
 use App\Team;
 use App\client;
 use App\project;
+use App\task;
 use App\team_member;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -201,16 +202,12 @@ class HomeController extends Controller {
 //        $data = Team::with(['company' => function($query){
 //            $query->select('id','name');
 //        }])->get();
-//        
-//        dd($data);
-
 
         return view("team_list")->with('team_list', $data)
                         ->with('companies', $companies);
     }
 
     public function view_team(Request $request) {
-//        dd($request->id);
 //        $team_info = DB::table('teams')
 //                ->where("teams.id", '=', $request->id)
 //                ->join('companies', 'teams.company_id', '=', 'companies.id')
@@ -394,6 +391,20 @@ class HomeController extends Controller {
         $project_info = project::find($request->id);
         $project_info->delete();
         return redirect::back();
+    }
+    
+//    ============= Project Section ===========
+
+    public function saveTask(Request $request) {
+//        dd($request);
+        $store=new task();
+        $store->project_id= $request->project_id;
+        $store->title= $request->title;
+        $store->description= $request->description;
+        $store->save();
+        
+        return redirect::back();
+                
     }
 
 //    ============= Client Section ===========

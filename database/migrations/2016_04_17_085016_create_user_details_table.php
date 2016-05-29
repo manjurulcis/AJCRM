@@ -14,7 +14,7 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unique();
+            $table->integer('user_id')->unique()->unsigned();
             $table->string('first_name',80);
             $table->string('last_name',80);
             $table->string('address',200);
@@ -23,6 +23,8 @@ class CreateUserDetailsTable extends Migration
             $table->tinyInteger('user_type');
             $table->string('photo');
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
     }

@@ -62,7 +62,7 @@
                     <div class="panel_toolbox">
 
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add new task
+                            <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Add new task
                         </button>
 
                         <!-- Modal -->
@@ -74,8 +74,8 @@
                                         <h4 class="modal-title" id="myModalLabel">New Task</h4>
                                     </div>
                                     <div class="modal-body">
-                                        {!! Form::open(array('url' => '','method'=>'post','files'=>true,'class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
-                                    
+                                        {!! Form::open(array('url' => '/saveTask','method'=>'post','class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
+                                        <input type="hidden" name="project_id" value="{{$project_info->id}}">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
                                         </label>
@@ -111,7 +111,7 @@
                             <div class="block">
                                 <div class="tags">
                                     <a href="" class="tag">
-                                        <span>12 May,2015</span>
+                                        <span>28 May,2015</span>
                                     </a>
                                 </div>
                                 <div class="block_content">
@@ -119,7 +119,7 @@
                                         <a>Add the project Task button</a>
                                     </h2>
                                     <div class="byline">
-                                        <span>3 hours ago</span> by <a>The Boss</a>
+                                        <span>6 hours ago</span> by <a>The Boss</a>
                                     </div>
                                     <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
                                     </p>
@@ -130,7 +130,7 @@
                             <div class="block">
                                 <div class="tags">
                                     <a href="" class="tag">
-                                        <span>12 May,2015</span>
+                                        <span>25 May,2015</span>
                                     </a>
                                 </div>
                                 <div class="block_content">
@@ -138,7 +138,7 @@
                                         <a>Add the team member into database</a>
                                     </h2>
                                     <div class="byline">
-                                        <span>1 days ago</span> by <a>The Boss</a>
+                                        <span>3 days ago</span> by <a>The Boss</a>
                                     </div>
                                     <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
                                     </p>
@@ -149,7 +149,7 @@
                             <div class="block">
                                 <div class="tags">
                                     <a href="" class="tag">
-                                        <span>12 May,2015</span>
+                                        <span>24 May,2015</span>
                                     </a>
                                 </div>
                                 <div class="block_content">
@@ -157,7 +157,7 @@
                                         <a>Add the Team members button</a>
                                     </h2>
                                     <div class="byline">
-                                        <span>1 days ago</span> by <a>The Boss</a>
+                                        <span>4 days ago</span> by <a>The Boss</a>
                                     </div>
                                     <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
                                     </p>
