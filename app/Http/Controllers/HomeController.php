@@ -339,8 +339,9 @@ class HomeController extends Controller {
 //                ->first();
 
         $project_info = project::with('client')->where('id', '=', $request->id)->first();
+        $projectTask = task::with('project')->latest()->get();
 
-        return view("project_info")->with('project_info', $project_info);
+        return view("project_info")->with('project_info', $project_info)->with('tasklist', $projectTask);
     }
 
     public function update_project(Request $data) {

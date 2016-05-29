@@ -1,3 +1,7 @@
+<?php
+//dd($tasklist);
+?>
+
 <div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -76,94 +80,65 @@
                                     <div class="modal-body">
                                         {!! Form::open(array('url' => '/saveTask','method'=>'post','class'=>'form-horizontal form-label-left','id'=>'demo-form2')) !!}
                                         <input type="hidden" name="project_id" value="{{$project_info->id}}">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-9 col-sm-6 col-xs-12">
-                                            <input type="text" name="title" id="title" required="required" placeholder="name of your Project" class="form-control col-md-7 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-6 col-xs-12">
+                                                <input type="text" name="title" id="title" required="required" placeholder="name of your Project" class="form-control col-md-7 col-xs-12">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
-                                        <div class="col-md-9 col-sm-6 col-xs-12">
-                                            <textarea name="description" id="description" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Task ..."></textarea>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
+                                            <div class="col-md-9 col-sm-6 col-xs-12">
+                                                <textarea name="description" id="description" class="resizable_textarea form-control" style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;" placeholder="Give some Description of your Task ..."></textarea>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group modal-footer">
-                                        <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" value="Save">
-                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                        <div class="form-group modal-footer">
+                                            <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <input type="submit" class="btn btn-success" value="Save">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                            </div>
                                         </div>
-                                    </div>
-                                    {!! Form::close() !!}
+                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <ul class="list-unstyled timeline">
+                        @if($tasklist->isEmpty())
+                        <li>
+                            <p>There's no task in this project</p>
+                        </li>
+                        @else
+                        @foreach($tasklist as $task)
                         <li>
                             <div class="block">
                                 <div class="tags">
                                     <a href="" class="tag">
-                                        <span>28 May,2015</span>
+                                        <span>{{date('d M,Y',strtotime($task->created_at))}}</span>
                                     </a>
                                 </div>
                                 <div class="block_content">
                                     <h2 class="title">
-                                        <a>Add the project Task button</a>
+                                        <a>{{$task->title}}</a>
                                     </h2>
-                                    <div class="byline">
+<!--                                    <div class="byline">
                                         <span>6 hours ago</span> by <a>The Boss</a>
-                                    </div>
-                                    <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                    </div>-->
+                                    <p class="excerpt">
+                                        {{$task->description}}
                                     </p>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="block">
-                                <div class="tags">
-                                    <a href="" class="tag">
-                                        <span>25 May,2015</span>
-                                    </a>
-                                </div>
-                                <div class="block_content">
-                                    <h2 class="title">
-                                        <a>Add the team member into database</a>
-                                    </h2>
-                                    <div class="byline">
-                                        <span>3 days ago</span> by <a>The Boss</a>
-                                    </div>
-                                    <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="block">
-                                <div class="tags">
-                                    <a href="" class="tag">
-                                        <span>24 May,2015</span>
-                                    </a>
-                                </div>
-                                <div class="block_content">
-                                    <h2 class="title">
-                                        <a>Add the Team members button</a>
-                                    </h2>
-                                    <div class="byline">
-                                        <span>4 days ago</span> by <a>The Boss</a>
-                                    </div>
-                                    <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                        @endforeach
+                        @endif
                     </ul>
 
                 </div>
