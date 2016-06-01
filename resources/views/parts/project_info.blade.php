@@ -120,19 +120,21 @@
                         <li>
                             <div class="block">
                                 <div class="tags">
-                                    <a href="" class="tag">
+                                    <a href="{{url('/task/view/'.$task->id)}}" class="tag">
                                         <span>{{date('d M,Y',strtotime($task->created_at))}}</span>
                                     </a>
                                 </div>
                                 <div class="block_content">
+
                                     <h2 class="title">
-                                        <a>{{$task->title}}</a>
+                                        <a href="{{url('/task/view/'.$task->id)}}">{{$task->title}}</a>
                                     </h2>
-<!--                                    <div class="byline">
+                                    <div class="byline">
                                         <span>6 hours ago</span> by <a>The Boss</a>
-                                    </div>-->
-                                    <p class="excerpt">
+                                    </div>
+                                    <p>
                                         {{$task->description}}
+                                        .....    <a href="{{url('/task/view/'.$task->id)}}" class="text-info">View more... </a>
                                     </p>
                                 </div>
                             </div>

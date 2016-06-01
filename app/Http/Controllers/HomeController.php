@@ -11,6 +11,7 @@ use App\Team;
 use App\client;
 use App\project;
 use App\task;
+use App\comment;
 use App\team_member;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -393,19 +394,61 @@ class HomeController extends Controller {
         $project_info->delete();
         return redirect::back();
     }
-    
+
 //    ============= Project Section ===========
 
     public function saveTask(Request $request) {
 //        dd($request);
-        $store=new task();
-        $store->project_id= $request->project_id;
-        $store->title= $request->title;
-        $store->description= $request->description;
+        $store = new task();
+        $store->project_id = $request->project_id;
+        $store->title = $request->title;
+        $store->description = $request->description;
         $store->save();
-        
+
         return redirect::back();
-                
+    }
+
+    public function viewTask(Request $request) {
+        $taskInfo = task::find($request->id);
+        return view('task_info')->with('taskInfo', $taskInfo);
+    }
+
+//    ============= Comment Section ===========
+
+    public function saveComment(Request $data) {
+//        dd($data->file);
+        $rules = [
+            'task_id' => 'required',
+            'user_id' => 'required',
+            'comment' => 'required'
+        ];
+        $messages = [
+            'comment.required' => 'Comment is required',
+        ];
+        $validator = Validator::make($data->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect::back()->withErrors($validator)->withInput();
+        }
+        $store = new comment();
+        $store->task_id = $data->task_id;
+        $store->user_id = $data->user_id;
+        $store->comment = $data->comment;
+        $file='';
+        foreach ($data->file as $fdata) {
+            if ($fdata->isValid()) {
+                $destinationPath = 'upload/comment'; // upload path
+                $extension = $fdata->getClientOriginalExtension();
+                $fileName = rand(1, 999) . '.' . $extension;
+                $fdata->move($destinationPath, $fileName);
+                $filepath=$destinationPath . '/' . $fileName;
+                $file=$filepath.",".$file;
+            }  
+        }
+        $store->file = chop($file,',') ;
+
+        $store->save();
+        Session::flash('msg', 'Comments Added Successfully ');
+        return redirect::back();
     }
 
 //    ============= Client Section ===========

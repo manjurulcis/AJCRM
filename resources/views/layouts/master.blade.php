@@ -26,9 +26,10 @@
         <link href="{{URL::asset('css')}}/datatables/tools/css/dataTables.tableTools.css" rel="stylesheet">
 
         <script src="{{URL::asset('js')}}/jquery.min.js"></script>
+
         <script src="{{URL::asset('js')}}/nprogress.js"></script>
         <script type="text/javascript">
-            var base_url='http://localhost/AJCRM/public';
+var base_url = 'http://localhost/AJCRM/public';
         </script>
 
         <!--[if lt IE 9]>
@@ -90,6 +91,7 @@
         <script type="text/javascript" src="{{URL::asset('js')}}/gauge/gauge_demo.js"></script>
         <!-- chart js -->
         <script src="{{URL::asset('js')}}/chartjs/chart.min.js"></script>
+
         <!-- bootstrap progress js -->
         <script src="{{URL::asset('js')}}/progressbar/bootstrap-progressbar.min.js"></script>
         <script src="{{URL::asset('js')}}/nicescroll/jquery.nicescroll.min.js"></script>
