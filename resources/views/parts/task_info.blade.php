@@ -1,4 +1,7 @@
-<!--dd($taskInfo);-->
+<?php
+//dd($taskInfo);
+//dd($commentList);
+?>
 
 <div class="">
     <div class="row">
@@ -36,6 +39,7 @@
                     <div class="ln_solid"></div>
 
                     <ul class="col-sm-offset-1 media-list">
+                        @foreach($commentList as $comment)
                         <li class="media">
                             <div class="media-left media-top">
                                 <a href="#">
@@ -43,10 +47,21 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">Md. Manjarul Islam</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                                <h4 class="media-heading">{{$comment->username}}</h4>
+                                <p>{{$comment->comment}}</p>
+                                
+                                @if(!empty($comment->file))
+                                <p>
+                                    <strong>Attachment ::</strong>
+                                    
+                                 @foreach(explode(',',$comment->file) as $file)   
+                                    <a href="{{url($file)}}" class="badge bg-primary" download><?php echo basename($file)?></a>                                                      @endforeach   
+                                </p>
+                                @endif
+                                
                             </div>
-                            <!--comment section starts-->
+<!--                            <div class="ln_solid"></div>
+                            comment section starts
                             <ul class="media-list col-sm-offset-1">
                                 <li class="media">
                                     <div class="media-left">
@@ -79,8 +94,9 @@
                                     </div>
                                 </li>
                             </ul>
-                            <!--comment section starts-->
+                            comment section ends-->
                         </li>
+                        @endforeach
                         <li class="media">
                             <div class="media-left media-top">
                                 <a href="#">

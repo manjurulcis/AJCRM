@@ -398,7 +398,6 @@ class HomeController extends Controller {
 //    ============= Project Section ===========
 
     public function saveTask(Request $request) {
-//        dd($request);
         $store = new task();
         $store->project_id = $request->project_id;
         $store->title = $request->title;
@@ -410,13 +409,23 @@ class HomeController extends Controller {
 
     public function viewTask(Request $request) {
         $taskInfo = task::find($request->id);
-        return view('task_info')->with('taskInfo', $taskInfo);
+
+        $commentList = DB::table('comments')
+                ->where("comments.task_id", '=', $request->id)
+                ->join('users', 'comments.user_id', '=', 'users.id')
+                ->select('comments.*', 'users.username')
+                ->get();
+
+//        $commentList = comment::with('user')->where('task_id',$request->id)->get();
+
+        return view('task_info')->with('taskInfo', $taskInfo)
+                        ->with('commentList', $commentList);
     }
 
 //    ============= Comment Section ===========
 
     public function saveComment(Request $data) {
-//        dd($data->file);
+//        dd($data->header('Host'));
         $rules = [
             'task_id' => 'required',
             'user_id' => 'required',
@@ -433,18 +442,19 @@ class HomeController extends Controller {
         $store->task_id = $data->task_id;
         $store->user_id = $data->user_id;
         $store->comment = $data->comment;
-        $file='';
+        $file = '';
+
         foreach ($data->file as $fdata) {
-            if ($fdata->isValid()) {
+            if (!empty($fdata)) {
                 $destinationPath = 'upload/comment'; // upload path
                 $extension = $fdata->getClientOriginalExtension();
                 $fileName = rand(1, 999) . '.' . $extension;
                 $fdata->move($destinationPath, $fileName);
-                $filepath=$destinationPath . '/' . $fileName;
-                $file=$filepath.",".$file;
-            }  
+                $filepath = $destinationPath . '/' . $fileName;
+                $file = $filepath . "," . $file;
+            }
         }
-        $store->file = chop($file,',') ;
+        $store->file = chop($file, ',');
 
         $store->save();
         Session::flash('msg', 'Comments Added Successfully ');
