@@ -341,6 +341,20 @@ class Builder
     }
 
     /**
+     * Get a generator for the given query.
+     *
+     * @return \Generator
+     */
+    public function cursor()
+    {
+        $builder = $this->applyScopes();
+
+        foreach ($builder->query->cursor() as $record) {
+            yield $this->model->newFromBuilder($record);
+        }
+    }
+
+    /**
      * Chunk the results of the query.
      *
      * @param  int  $count
@@ -727,6 +741,24 @@ class Builder
     }
 
     /**
+     * Apply the callback's query changes if the given "value" is true.
+     *
+     * @param  bool  $value
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function when($value, $callback)
+    {
+        $builder = $this;
+
+        if ($value) {
+            $builder = call_user_func($callback, $builder);
+        }
+
+        return $builder;
+    }
+
+    /**
      * Add a basic where clause to the query.
      *
      * @param  string  $column
@@ -1026,7 +1058,9 @@ class Builder
 
             call_user_func($constraints, $query);
 
-            $this->selectSub($query->getQuery(), snake_case($name).'_count');
+            $this->mergeModelDefinedRelationWheresToHasQuery($query, $relation);
+
+            $this->selectSub($query->toBase(), snake_case($name).'_count');
         }
 
         return $this;

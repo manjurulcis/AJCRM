@@ -8,6 +8,7 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
@@ -535,6 +536,10 @@ class Builder
         // in our array and add the query binding to our array of bindings that
         // will be bound to each SQL statements when it is finally executed.
         $type = 'Basic';
+
+        if (Str::contains($column, '->') && is_bool($value)) {
+            $value = new Expression($value ? 'true' : 'false');
+        }
 
         $this->wheres[] = compact('type', 'column', 'operator', 'value', 'boolean');
 
@@ -1284,10 +1289,10 @@ class Builder
      */
     public function orderBy($column, $direction = 'asc')
     {
-        $property = $this->unions ? 'unionOrders' : 'orders';
-        $direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
-
-        $this->{$property}[] = compact('column', 'direction');
+        $this->{$this->unions ? 'unionOrders' : 'orders'}[] = [
+            'column' => $column,
+            'direction' => strtolower($direction) == 'asc' ? 'asc' : 'desc',
+        ];
 
         return $this;
     }
@@ -1312,6 +1317,17 @@ class Builder
     public function oldest($column = 'created_at')
     {
         return $this->orderBy($column, 'asc');
+    }
+
+    /**
+     * Put the query's results in random order.
+     *
+     * @param  string  $seed
+     * @return $this
+     */
+    public function inRandomOrder($seed = '')
+    {
+        return $this->orderByRaw($this->grammar->compileRandom($seed));
     }
 
     /**
@@ -1410,6 +1426,11 @@ class Builder
      */
     public function forPageAfterId($perPage = 15, $lastId = 0, $column = 'id')
     {
+        $this->orders = Collection::make($this->orders)
+                ->reject(function ($order) use ($column) {
+                    return $order['column'] === $column;
+                })->values()->all();
+
         return $this->where($column, '>', $lastId)
                     ->orderBy($column, 'asc')
                     ->take($perPage);
@@ -1684,6 +1705,22 @@ class Builder
 
         $this->backups = [];
         $this->bindingBackups = [];
+    }
+
+    /**
+     * Get a generator for the given query.
+     *
+     * @return \Generator
+     */
+    public function cursor()
+    {
+        if (is_null($this->columns)) {
+            $this->columns = ['*'];
+        }
+
+        return $this->connection->cursor(
+            $this->toSql(), $this->getBindings(), ! $this->useWritePdo
+        );
     }
 
     /**
@@ -2030,7 +2067,9 @@ class Builder
 
         $sql = $this->grammar->compileUpdate($this, $values);
 
-        return $this->connection->update($sql, $this->cleanBindings($bindings));
+        return $this->connection->update($sql, $this->cleanBindings(
+            $this->grammar->prepareBindingsForUpdate($bindings, $values)
+        ));
     }
 
     /**

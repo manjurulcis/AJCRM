@@ -29,7 +29,7 @@
 
         <script src="<?php echo e(URL::asset('js')); ?>/nprogress.js"></script>
         <script type="text/javascript">
-var base_url = 'http://localhost/AJCRM/public';
+        var base_url = 'http://localhost/AJCRM/public';
         </script>
 
         <!--[if lt IE 9]>

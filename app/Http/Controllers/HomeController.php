@@ -457,7 +457,12 @@ class HomeController extends Controller {
         $store->file = chop($file, ',');
 
         $store->save();
-        Session::flash('msg', 'Comments Added Successfully ');
+        return redirect::back();
+    }
+    
+    public function deleteComment(Request $request) {
+        $comment_info = comment::find($request->id);
+        $comment_info->delete();
         return redirect::back();
     }
 

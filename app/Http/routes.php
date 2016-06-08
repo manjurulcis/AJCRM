@@ -72,6 +72,7 @@ Route::get('/task/view/{id}', 'HomeController@viewTask');
 
 // Project Task section
 Route::post('/saveComment', 'HomeController@saveComment');
+Route::get('/comment/delete/{id}', 'HomeController@deleteComment');
 
 //Client section
 Route::get('/add-client', 'HomeController@add_client');
